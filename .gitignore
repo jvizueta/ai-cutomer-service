@@ -123,3 +123,8 @@ langchain.yaml
 # OS files
 .DS_Store
 Thumbs.db
+
+# Virtual environment directories
+.venv/
+venv/
+env/
