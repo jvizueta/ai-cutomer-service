@@ -1,0 +1,58 @@
+name: build-and-deploy
+registry: ghcr.io
+username: ${{ github.repository_owner }}
+password: ${{ secrets.GITHUB_TOKEN }}
+
+
+- name: Build
+run: |
+docker build -t $IMAGE_NAME:${{ github.sha }} .
+docker tag $IMAGE_NAME:${{ github.sha }} $IMAGE_NAME:latest
+
+
+- name: Push
+run: |
+docker push $IMAGE_NAME:${{ github.sha }}
+docker push $IMAGE_NAME:latest
+
+
+bump-manifests:
+needs: build-push
+runs-on: ubuntu-latest
+permissions:
+contents: write
+steps:
+- name: Checkout manifests repo
+uses: actions/checkout@v4
+with:
+repository: ${{ env.MANIFESTS_REPO }}
+token: ${{ secrets.MANIFESTS_TOKEN }} # classic PAT with repo scope in the target repo
+path: manifests
+
+
+- name: Update image tag via kustomize
+working-directory: manifests/${{ env.MANIFESTS_PATH }}
+run: |
+sudo apt-get update && sudo apt-get install -y --no-install-recommends gettext-base
+# Use yq if available; fallback to kustomize edit set image
+if command -v yq >/dev/null 2>&1; then
+yq -i '(.images[] | select(.name=="ghcr.io/.+")) .newTag = "'${{ github.sha }}'"' kustomization.yaml || true
+fi
+if command -v kustomize >/dev/null 2>&1; then
+kustomize edit set image $IMAGE_NAME=$IMAGE_NAME:${{ github.sha }}
+else
+# naive sed fallback for "newTag:" lines
+sed -i "s#newTag: .*#newTag: ${{ github.sha }}#" kustomization.yaml || true
+fi
+
+
+- name: Create PR
+uses: peter-evans/create-pull-request@v6
+with:
+token: ${{ secrets.MANIFESTS_TOKEN }}
+path: manifests
+commit-message: "lyra: bump image to ${{ github.sha }}"
+title: "lyra: bump image to ${{ github.sha }}"
+body: "Automated image tag update from CI"
+branch: ci/lyra-${{ github.sha }}
+base: main
