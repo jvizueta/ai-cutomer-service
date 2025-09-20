@@ -25,6 +25,9 @@ jobs:
           docker build -t $IMAGE_NAME:${{ github.sha }} .
           docker tag $IMAGE_NAME:${{ github.sha }} $IMAGE_NAME:latest
 
+      - name: Debug owner
+        run: echo "Repository owner is ${{ github.repository_owner }}"
+
       - name: Push
         run: |
           docker push $IMAGE_NAME:${{ github.sha }}

@@ -67,5 +67,21 @@ If LangChain is not installed, you'll get a fallback message.
 
 ---
 
+## Building the Docker Image Manually
+
+To build the Lyra Docker image locally, run:
+
+```bash
+docker build -t lyra:latest .
+```
+
+To run the container locally (mapping port 8000):
+
+```bash
+docker run --env-file .env -p 8000:8000 lyra:latest
+```
+
+---
+
 **Tip:**  
 If you don't have `pytest` installed, add it to your `requirements.txt` or install it with `pip install pytest`.
