@@ -1,4 +1,4 @@
-name: build-and-deploy
+name: Lyra CI/CD
 
 on:
   push:
