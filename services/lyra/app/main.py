@@ -1,38 +1,55 @@
 from dotenv import load_dotenv
 load_dotenv()
+
 from fastapi import FastAPI
-from pydantic import BaseModel
-import os
+from .models import AskReq, AskResponse
+from .services.ai_service import AIService
+from .config import settings
+import logging
 
-# Minimal LangChain agent (OpenAI-compatible). Install: langchain, langchain-openai
-try:
-    from langchain_openai import ChatOpenAI
-    from langchain_core.messages import HumanMessage
-except Exception:
-    ChatOpenAI = None
-    HumanMessage = None
+# Configure logging
+logger = logging.getLogger(__name__)
 
-app = FastAPI(title="Lyra", version="0.1.0")
+app = FastAPI(title="Lyra AI Agent", version="0.1.0")
 
-
-class AskReq(BaseModel):
-    question: str
-
+# Initialize services
+ai_service = AIService()
 
 @app.get("/healthz")
 async def healthz():
-    return {"ok": True}
+    """Health check endpoint"""
+    return {
+        "ok": True,
+        "ai_service_available": ai_service.is_available(),
+        "model": settings.lc_model
+    }
 
-
-@app.post("/ask")
+@app.post("/ask", response_model=AskResponse)
 async def ask(req: AskReq):
-    # Prefer OPENAI_API_KEY; support OPENROUTER_API_KEY as fallback
-    api_key = os.getenv("OPENAI_API_KEY") or os.getenv("OPENROUTER_API_KEY")
-    model_name = os.getenv("LC_MODEL", "gpt-4o-mini")
+    """Generate AI response for a given question"""
+    logger.info(f"Received question: {req.question[:100]}...")
+    
+    answer = await ai_service.generate_response(req.question, req.language)
+    
+    return AskResponse(answer=answer)
 
-    if ChatOpenAI is None:
-        return {"answer": f"Hello, {req.question}. (LangChain not installed in image)"}
+@app.get("/")
+async def root():
+    """Root endpoint with service information"""
+    return {
+        "app": "Lyra AI Agent",
+        "version": "0.1.0",
+        "model": settings.lc_model,
+        "ai_available": ai_service.is_available(),
+        "endpoints": ["/ask", "/healthz"]
+    }
 
-    llm = ChatOpenAI(api_key=api_key, model=model_name, temperature=0.2)
-    msg = await llm.ainvoke([HumanMessage(content=f"Answer briefly: {req.question}")])
-    return {"answer": msg.content}
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        "main:app",
+        host=settings.host,
+        port=settings.port,
+        reload=settings.reload,
+        log_level=settings.log_level.lower()
+    )

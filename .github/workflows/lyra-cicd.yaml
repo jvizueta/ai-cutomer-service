@@ -3,6 +3,14 @@ name: build-and-deploy
 on:
   push:
     branches: [main]
+    paths:
+      - 'services/lyra/**'
+      - '.github/workflows/lyra-cicd.yaml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'services/lyra/**'
+      - '.github/workflows/lyra-cicd.yaml'
 
 env:
   registry: ghcr.io

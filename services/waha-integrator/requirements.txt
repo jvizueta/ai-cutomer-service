@@ -1,8 +1,5 @@
 fastapi==0.112.0
 uvicorn[standard]==0.30.4
-langchain==0.2.10
-langchain-openai==0.1.17
-langchain-core==0.2.25
 pydantic==2.8.2
 pydantic-settings==2.4.0
 python-dotenv==1.0.1
