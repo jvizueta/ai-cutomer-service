@@ -2,12 +2,12 @@ name: Counter Agent CI/CD
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
     paths:
       - 'services/counter-agent/**'
       - '.github/workflows/counter-agent-cicd.yaml'
   pull_request:
-    branches: [main]
+    branches: [main, develop]
     paths:
       - 'services/counter-agent/**'
       - '.github/workflows/counter-agent-cicd.yaml'
@@ -16,7 +16,7 @@ env:
   registry: ghcr.io
   username: ${{ github.repository_owner }}
   password: ${{ secrets.GITHUB_TOKEN }}
-  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/counter-agent
+  IMAGE_NAME: ghcr.io/${{ github.repository }}/counter-agent
 
 jobs:
   build-push:
@@ -31,17 +31,61 @@ jobs:
       - name: Log in to registry
         run: echo "${{ env.password }}" | docker login ${{ env.registry }} -u ${{ env.username }} --password-stdin
 
-      - name: Build
+      - name: Determine tags based on branch
+        id: tags
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            # Production tags
+            echo "TAGS=$IMAGE_NAME:latest,$IMAGE_NAME:prod-${{ github.sha }},$IMAGE_NAME:stable" >> $GITHUB_ENV
+            echo "ENV_TAG=PROD" >> $GITHUB_ENV
+          elif [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+            # Development tags
+            echo "TAGS=$IMAGE_NAME:dev,$IMAGE_NAME:dev-${{ github.sha }},$IMAGE_NAME:dev-latest" >> $GITHUB_ENV
+            echo "ENV_TAG=DEV" >> $GITHUB_ENV
+          else
+            # Pull request tags
+            echo "TAGS=$IMAGE_NAME:pr-${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+            echo "ENV_TAG=PR-${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+          fi
+
+      - name: Build Docker image
         run: |
           cd services/counter-agent
-          docker build -t $IMAGE_NAME:${{ github.sha }} .
-          docker tag $IMAGE_NAME:${{ github.sha }} $IMAGE_NAME:latest
+          
+          # Build with environment label
+          docker build \
+            --label "environment=${{ env.ENV_TAG }}" \
+            --label "commit=${{ github.sha }}" \
+            --label "build_date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+            --label "version=${{ github.run_number }}" \
+            -t $IMAGE_NAME:build .
 
-      - name: Debug owner
-        run: echo "Repository owner is ${{ github.repository_owner }}"
-
-      - name: Push
+      - name: Tag images
         run: |
-          cd services/counter-agent
-          docker push $IMAGE_NAME:${{ github.sha }}
-          docker push $IMAGE_NAME:latest
+          # Tag with all appropriate tags
+          IFS=',' read -ra TAG_ARRAY <<< "${{ env.TAGS }}"
+          for tag in "${TAG_ARRAY[@]}"; do
+            echo "Tagging as $tag"
+            docker tag $IMAGE_NAME:build $tag
+          done
+
+      - name: Push images
+        run: |
+          # Push all tags
+          IFS=',' read -ra TAG_ARRAY <<< "${{ env.TAGS }}"
+          for tag in "${TAG_ARRAY[@]}"; do
+            echo "Pushing $tag"
+            docker push $tag
+          done
+
+      - name: Output summary
+        run: |
+          echo "## 🐳 Docker Image Published" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** ${{ env.ENV_TAG }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Tags:**" >> $GITHUB_STEP_SUMMARY
+          IFS=',' read -ra TAG_ARRAY <<< "${{ env.TAGS }}"
+          for tag in "${TAG_ARRAY[@]}"; do
+            echo "- \`$tag\`" >> $GITHUB_STEP_SUMMARY
+          done
