@@ -38,19 +38,14 @@ jobs:
             # Production tags
             echo "TAGS=$IMAGE_NAME:latest,$IMAGE_NAME:prod-${{ github.sha }},$IMAGE_NAME:stable" >> $GITHUB_ENV
             echo "ENV_TAG=PROD" >> $GITHUB_ENV
-            echo "KUSTOMIZE_PATH=k8s/counter-agent/overlays/prod/kustomization.yaml" >> $GITHUB_ENV
-            echo "PRIMARY_TAG=prod-${{ github.sha }}" >> $GITHUB_ENV
           elif [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
             # Development tags
             echo "TAGS=$IMAGE_NAME:dev,$IMAGE_NAME:dev-${{ github.sha }},$IMAGE_NAME:dev-latest" >> $GITHUB_ENV
             echo "ENV_TAG=DEV" >> $GITHUB_ENV
-            echo "KUSTOMIZE_PATH=k8s/counter-agent/overlays/dev/kustomization.yaml" >> $GITHUB_ENV
-            echo "PRIMARY_TAG=dev-${{ github.sha }}" >> $GITHUB_ENV
           else
             # Pull request tags
             echo "TAGS=$IMAGE_NAME:pr-${{ github.event.pull_request.number }}" >> $GITHUB_ENV
             echo "ENV_TAG=PR-${{ github.event.pull_request.number }}" >> $GITHUB_ENV
-            echo "PRIMARY_TAG=pr-${{ github.event.pull_request.number }}" >> $GITHUB_ENV
           fi
 
       - name: Build Docker image
@@ -94,107 +89,3 @@ jobs:
           for tag in "${TAG_ARRAY[@]}"; do
             echo "- \`$tag\`" >> $GITHUB_STEP_SUMMARY
           done
-
-  update-manifest:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    # Only run for push events, not PRs, and skip if triggered by github-actions bot
-    if: |
-      github.event_name == 'push' && 
-      github.actor != 'github-actions[bot]' &&
-      !contains(github.event.head_commit.message, '[skip ci]') &&
-      !contains(github.event.head_commit.message, '[ci skip]')
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
-
-      - name: Set up environment variables
-        run: |
-          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            echo "KUSTOMIZE_PATH=k8s/counter-agent/overlays/prod/kustomization.yaml" >> $GITHUB_ENV
-            echo "PRIMARY_TAG=prod-${{ github.sha }}" >> $GITHUB_ENV
-            echo "ENV_NAME=production" >> $GITHUB_ENV
-          else
-            echo "KUSTOMIZE_PATH=k8s/counter-agent/overlays/dev/kustomization.yaml" >> $GITHUB_ENV
-            echo "PRIMARY_TAG=dev-${{ github.sha }}" >> $GITHUB_ENV
-            echo "ENV_NAME=development" >> $GITHUB_ENV
-          fi
-
-      - name: Update Kustomization
-        id: update
-        run: |
-          # Install yq if not present
-          wget -qO /tmp/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
-          chmod +x /tmp/yq
-          
-          # Create kustomization file if it doesn't exist
-          if [ ! -f "${{ env.KUSTOMIZE_PATH }}" ]; then
-            mkdir -p $(dirname "${{ env.KUSTOMIZE_PATH }}")
-            cat > "${{ env.KUSTOMIZE_PATH }}" << EOF
-          apiVersion: kustomize.config.k8s.io/v1beta1
-          kind: Kustomization
-          resources:
-            - env.sealed.yaml
-            - cloudflared-tunnel-token.sealed.yaml
-            - cloudflared-cert.sealed.yaml
-            - ../../base
-          images:
-            - name: ghcr.io/jvizueta/ai-customer-service/counter-agent
-              newTag: latest
-          EOF
-          fi
-          
-          # Update the image tag
-          /tmp/yq eval -i '(.images[] | select(.name == "ghcr.io/jvizueta/ai-customer-service/counter-agent")).newTag = "${{ env.PRIMARY_TAG }}"' "${{ env.KUSTOMIZE_PATH }}"
-          
-          # Check if there are changes
-          if git diff --quiet; then
-            echo "No changes detected"
-            echo "changed=false" >> $GITHUB_OUTPUT
-          else
-            echo "Changes detected"
-            echo "changed=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Create Pull Request
-        if: steps.update.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: |
-            [skip ci] Update counter-agent image to ${{ env.PRIMARY_TAG }}
-            
-            Automated image update from workflow run #${{ github.run_number }}
-          title: |
-            [Auto] Update counter-agent image to ${{ env.PRIMARY_TAG }}
-          body: |
-            ## 🤖 Automated Image Update
-            
-            This PR updates the counter-agent image tag in the ${{ env.ENV_NAME }} environment.
-            
-            ### Changes
-            - **Image**: `ghcr.io/jvizueta/ai-customer-service/counter-agent`
-            - **New Tag**: `${{ env.PRIMARY_TAG }}`
-            - **Environment**: ${{ env.ENV_NAME }}
-            - **Commit**: ${{ github.sha }}
-            
-            ### Source
-            - **Workflow Run**: [#${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-            - **Triggered by**: @${{ github.actor }}
-            
-            ---
-            *This PR was automatically generated. Merging it will NOT trigger a new CI/CD run due to the `[skip ci]` commit message.*
-          branch: update-counter-agent-${{ env.ENV_NAME }}-${{ github.sha }}
-          delete-branch: true
-          labels: |
-            automated
-            image-update
-            ${{ env.ENV_NAME }}
-          assignees: ${{ github.actor }}
-          reviewers: ${{ github.actor }}
