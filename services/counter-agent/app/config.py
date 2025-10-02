@@ -1,4 +1,4 @@
-# services/lyra/app/config.py
+# services/counter-agent/app/config.py
 import os
 from pydantic_settings import BaseSettings
 from pydantic import Field

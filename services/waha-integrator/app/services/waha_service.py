@@ -19,7 +19,9 @@ class WAHAService:
         """Get headers for WAHA API requests"""
         headers = {"Content-Type": "application/json"}
         if self.api_key:
-            headers["Authorization"] = f"Bearer {self.api_key}"
+            headers["X-Api-Key"] = self.api_key
+            # headers["Authorization"] = f"Bearer {self.api_key}"
+            logger.info("Using WAHA API key for authorization")
         return headers
     
     async def send_text(self, session: str, chat_id: str, text: str) -> bool:
@@ -39,7 +41,7 @@ class WAHAService:
                     json=payload
                 )
                 
-                if response.status_code == 200:
+                if response.status_code in [200, 201]:
                     logger.info(f"Successfully sent message to {chat_id}")
                     return True
                 else:

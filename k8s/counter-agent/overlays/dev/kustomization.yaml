@@ -6,5 +6,5 @@ resources:
   - cloudflared-cert.sealed.yaml
   - ../../base
 images:
-  - name: ghcr.io/jvizueta/lyra
+  - name: ghcr.io/jvizueta/counter-agent
     newTag: latest

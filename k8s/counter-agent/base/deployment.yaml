@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: lyra
+  name: counter-agent
   labels:
-    app: lyra
+    app: counter-agent
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: lyra
+      app: counter-agent
   template:
     metadata:
       labels:
-        app: lyra
+        app: counter-agent
     spec:
       containers:
         - name: app
-          image: ghcr.io/jvizueta/lyra:latest # kustomize will pin SHA in overlay
+          image: ghcr.io/jvizueta/counter-agent:latest # kustomize will pin SHA in overlay
           ports:
             - containerPort: 8000
           env:
@@ -24,7 +24,7 @@ spec:
               value: gpt-4o-mini
           envFrom:
             - secretRef:
-                name: lyra-env
+                name: counter-agent-env
           readinessProbe:
             httpGet:
               path: /healthz

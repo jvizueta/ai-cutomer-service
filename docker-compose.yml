@@ -1,8 +1,8 @@
 # docker-compose.yml
 version: '3.8'
 services:
-  lyra:
-    build: ./services/lyra
+  counter-agent:
+    build: ./services/counter-agent
     ports:
       - "8000:8000"
     environment:
@@ -10,7 +10,7 @@ services:
       - LC_MODEL=${LC_MODEL}
       - LOG_LEVEL=${LOG_LEVEL}
     volumes:
-      - ./services/lyra:/app
+      - ./services/counter-agent:/app
     
   waha-integrator:
     build: ./services/waha-integrator
@@ -21,6 +21,6 @@ services:
       - WAHA_BASE_URL=${WAHA_BASE_URL}
       - WAHA_API_KEY=${WAHA_API_KEY}
     depends_on:
-      - lyra
+      - counter-agent
     volumes:
       - ./services/waha-integrator:/app

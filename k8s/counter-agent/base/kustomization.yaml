@@ -4,5 +4,5 @@ resources:
   - deployment.yaml
   - service.yaml
 images:
-  - name: ghcr.io/jvizueta/lyra
+  - name: ghcr.io/jvizueta/counter-agent
     newTag: latest

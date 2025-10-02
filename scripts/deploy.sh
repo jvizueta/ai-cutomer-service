@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
 
-echo "Deploying Lyra to Kubernetes..."
+echo "Deploying counter-agent to Kubernetes..."
 
 # Get script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
 # Configuration
-NAMESPACE=${NAMESPACE:-"lyra"}
+NAMESPACE=${NAMESPACE:-"ai-customer-service-dev"}
 REGISTRY=${REGISTRY:-"ghcr.io/jvizueta"}
 TAG=${TAG:-"latest"}
 CONTEXT=${CONTEXT:-""}
@@ -37,12 +37,12 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
-  - lyra/
+  - counter-agent/
   - waha-integrator/
 
 images:
-  - name: lyra
-    newName: $REGISTRY/lyra
+  - name: counter-agent
+    newName: $REGISTRY/counter-agent
     newTag: $TAG
   - name: waha-integrator
     newName: $REGISTRY/waha-integrator  
@@ -57,7 +57,7 @@ kubectl apply -k . -f kustomization-deploy.yaml
 
 # Wait for deployments to be ready
 echo "Waiting for deployments to be ready..."
-kubectl rollout status deployment/lyra -n "$NAMESPACE" --timeout=300s
+kubectl rollout status deployment/counter-agent -n "$NAMESPACE" --timeout=300s
 kubectl rollout status deployment/waha-integrator -n "$NAMESPACE" --timeout=300s
 
 # Cleanup
@@ -72,8 +72,8 @@ kubectl get pods,svc -n "$NAMESPACE"
 
 echo ""
 echo "Service URLs (if using port-forward):"
-echo "  # Lyra AI Agent:"
-echo "  kubectl port-forward -n $NAMESPACE svc/lyra 8000:8000"
+echo "  # counter-agent AI Agent:"
+echo "  kubectl port-forward -n $NAMESPACE svc/counter-agent 8000:8000"
 echo "  # Then access: http://localhost:8000"
 echo ""
 echo "  # WAHA Integrator:"  
@@ -86,7 +86,7 @@ echo "  # Deploy with defaults:"
 echo "  ./scripts/deploy.sh"
 echo ""
 echo "  # Deploy to specific namespace:"
-echo "  NAMESPACE=lyra-dev ./scripts/deploy.sh"
+echo "  NAMESPACE=counter-agent-dev ./scripts/deploy.sh"
 echo ""
 echo "  # Deploy with custom images:"
 echo "  REGISTRY=my-registry.com TAG=v1.0.0 ./scripts/deploy.sh"

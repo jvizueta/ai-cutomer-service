@@ -1,4 +1,4 @@
-# Lyra
+# counter-agent
 
 ## Setup (Python Virtual Environment)
 
@@ -38,7 +38,7 @@
 
 ## Manual Testing
 
-You can manually test the Lyra app using `curl` or any HTTP client (like Postman or httpie):
+You can manually test the counter-agent app using `curl` or any HTTP client (like Postman or httpie):
 
 ### 1. **Health Check**
 
@@ -69,16 +69,16 @@ If LangChain is not installed, you'll get a fallback message.
 
 ## Building the Docker Image Manually
 
-To build the Lyra Docker image locally, run:
+To build the counter-agent Docker image locally, run:
 
 ```bash
-docker build -t lyra:latest .
+docker build -t counter-agent:latest .
 ```
 
 To run the container locally (mapping port 8000):
 
 ```bash
-docker run --env-file .env -p 8000:8000 lyra:latest
+docker run --env-file .env -p 8000:8000 counter-agent:latest
 ```
 
 ---

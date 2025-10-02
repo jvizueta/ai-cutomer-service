@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "Building Lyra microservices..."
+echo "Building counter-agent microservices..."
 
 # Get script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -14,9 +14,9 @@ TAG=${TAG:-"latest"}
 echo "Registry: $REGISTRY"
 echo "Tag: $TAG"
 
-# Build Lyra AI Agent
-echo "Building Lyra AI Agent..."
-docker build -t "$REGISTRY/lyra:$TAG" "$PROJECT_ROOT/services/lyra"
+# Build counter-agent AI Agent
+echo "Building counter-agent AI Agent..."
+docker build -t "$REGISTRY/counter-agent:$TAG" "$PROJECT_ROOT/services/counter-agent"
 
 # Build WAHA Integrator
 echo "Building WAHA Integrator..."
@@ -27,14 +27,14 @@ echo "Build completed successfully!"
 # Optional: Push to registry if PUSH=true
 if [ "$PUSH" = "true" ]; then
     echo "Pushing images to registry..."
-    docker push "$REGISTRY/lyra:$TAG"
+    docker push "$REGISTRY/counter-agent:$TAG"
     docker push "$REGISTRY/waha-integrator:$TAG"
     echo "Images pushed successfully!"
 fi
 
 echo ""
 echo "Built images:"
-echo "  - $REGISTRY/lyra:$TAG"
+echo "  - $REGISTRY/counter-agent:$TAG"
 echo "  - $REGISTRY/waha-integrator:$TAG"
 echo ""
 echo "Usage examples:"

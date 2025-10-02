@@ -10,7 +10,7 @@ import logging
 # Configure logging
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="Lyra AI Agent", version="0.1.0")
+app = FastAPI(title="counter-agent AI Agent", version="0.1.0")
 
 # Initialize services
 ai_service = AIService()
@@ -37,7 +37,7 @@ async def ask(req: AskReq):
 async def root():
     """Root endpoint with service information"""
     return {
-        "app": "Lyra AI Agent",
+        "app": "counter-agent AI Agent",
         "version": "0.1.0",
         "model": settings.lc_model,
         "ai_available": ai_service.is_available(),

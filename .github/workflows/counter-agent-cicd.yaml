@@ -1,22 +1,22 @@
-name: Lyra CI/CD
+name: Counter Agent CI/CD
 
 on:
   push:
     branches: [main]
     paths:
-      - 'services/lyra/**'
-      - '.github/workflows/lyra-cicd.yaml'
+      - 'services/counter-agent/**'
+      - '.github/workflows/counter-agent-cicd.yaml'
   pull_request:
     branches: [main]
     paths:
-      - 'services/lyra/**'
-      - '.github/workflows/lyra-cicd.yaml'
+      - 'services/counter-agent/**'
+      - '.github/workflows/counter-agent-cicd.yaml'
 
 env:
   registry: ghcr.io
   username: ${{ github.repository_owner }}
   password: ${{ secrets.GITHUB_TOKEN }}
-  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/lyra
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/counter-agent
 
 jobs:
   build-push:
@@ -33,7 +33,7 @@ jobs:
 
       - name: Build
         run: |
-          cd services/lyra
+          cd services/counter-agent
           docker build -t $IMAGE_NAME:${{ github.sha }} .
           docker tag $IMAGE_NAME:${{ github.sha }} $IMAGE_NAME:latest
 
@@ -42,6 +42,6 @@ jobs:
 
       - name: Push
         run: |
-          cd services/lyra
+          cd services/counter-agent
           docker push $IMAGE_NAME:${{ github.sha }}
           docker push $IMAGE_NAME:latest
