@@ -19,8 +19,62 @@ env:
   IMAGE_NAME: ghcr.io/${{ github.repository }}/counter-agent
 
 jobs:
-  build-push:
+  test:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-counter-agent-${{ hashFiles('services/counter-agent/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-counter-agent-
+
+      - name: Install dependencies
+        working-directory: services/counter-agent
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio httpx
+
+      - name: Run tests
+        working-directory: services/counter-agent
+        run: |
+          # Create basic test if none exist
+          mkdir -p tests
+          if [ ! -f tests/test_main.py ]; then
+            cat > tests/test_main.py << 'EOF'
+          import pytest
+          from fastapi.testclient import TestClient
+          from app.main import app
+
+          client = TestClient(app)
+
+          def test_health_check():
+              response = client.get("/healthz")
+              assert response.status_code == 200
+              assert "ok" in response.json()
+
+          def test_root_endpoint():
+              response = client.get("/")
+              assert response.status_code == 200
+              data = response.json()
+              assert data["app"] == "Counter Agent"
+          EOF
+          fi
+          python -m pytest tests/ -v  
+  build-push:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     permissions:
       contents: read
       packages: write

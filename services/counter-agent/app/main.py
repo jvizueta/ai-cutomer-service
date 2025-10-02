@@ -37,7 +37,7 @@ async def ask(req: AskReq):
 async def root():
     """Root endpoint with service information"""
     return {
-        "app": "counter-agent AI Agent",
+        "app": "Counter Agent",
         "version": "0.1.0",
         "model": settings.lc_model,
         "ai_available": ai_service.is_available(),
