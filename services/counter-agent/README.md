@@ -1,4 +1,4 @@
-# counter-agent
+# Counter Agent
 
 ## Setup (Python Virtual Environment)
 
