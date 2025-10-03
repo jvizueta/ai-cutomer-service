@@ -65,7 +65,7 @@ jobs:
               response = client.get("/")
               assert response.status_code == 200
               data = response.json()
-              assert data["app"] == "WAHA Integration"
+              assert data["app"] == "WAHA Integrator"
           EOF
           fi
           python -m pytest tests/ -v
@@ -77,7 +77,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
