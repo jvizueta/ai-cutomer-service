@@ -1,5 +1,8 @@
 # Counter Agent
 
+## Introduction
+Counter Agent answers general questions
+
 ## Setup (Python Virtual Environment)
 
 1. **Create and activate a virtual environment:**
