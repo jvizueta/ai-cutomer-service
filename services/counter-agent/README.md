@@ -1,7 +1,7 @@
 # Counter Agent
 
 ## Introduction
-Counter Agent answers general questions
+Counter Agent answers general questions related to the customer service
 
 ## Setup (Python Virtual Environment)
 
