@@ -26,27 +26,28 @@ async def healthz():
 async def waha_webhook(req: WAHAWebhookReq):
     logger.info(f"Full request: {req.json()}")
     logger.info(f"Received webhook event: {req.event} for session {req.session}")
-
-    # Try to extract message from payload.data if present
-    payload = req.payload
-    data = payload.get("data", {})
-    message = data.get("body") or payload.get("body")
-    chat_id = data.get("from") or payload.get("from")
-    msg_type = data.get("type") or payload.get("type")
-
-    # Only process chat/text messages
-    if msg_type != "chat" or not message or not chat_id:
-        logger.info("Ignoring non-chat event or missing message/chat_id")
+    if req.event != "message":
+        logger.info("Ignoring non-message event")
         return {"status": "ignored"}
-
+    
+    logger.info(f"Processing chat message...")
+    message = req.payload.get("body", "").strip()
+    chat_id = req.payload.get("from")
+    
+    if not message or not chat_id:
+        logger.warning("Missing message body or chat ID; ignoring.")
+        return {"status": "ignored"}
+    
     logger.info(f"Processing message from {chat_id}: {message[:100]}...")
-
+    
+    # Get AI response from counter-agent service - USE CONFIG VALUE
     ai_response = await counter_agent_service.ask(message, language=settings.default_language)
     logger.info(f"AI response: {ai_response[:100]}...")
-
+    
+    # Send back via WAHA
     result = await waha_service.send_text(req.session, chat_id, ai_response)
     logger.info(f"WAHA send result: {result}")
-
+    
     if result:
         logger.info(f"Successfully sent response to {chat_id}")
         return {"status": "sent", "message": ai_response}
