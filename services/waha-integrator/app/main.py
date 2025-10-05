@@ -26,8 +26,8 @@ async def healthz():
 async def waha_webhook(req: WAHAWebhookReq):
     logger.info(f"Full request: {req.json()}")
     logger.info(f"Received webhook event: {req.event} for session {req.session}")
-    if req.event != "message" or req.payload.get("type") != "text":
-        logger.info("Ignoring non-message or non-text event")
+    if req.event != "message" or req.payload.get("type") != "chat":
+        logger.info("Ignoring non-message or non-chat event")
         return {"status": "ignored"}
     
     message = req.payload.get("body", "").strip()
