@@ -82,6 +82,7 @@ class AIService:
                 self.memory.save_context({"input": prompt}, {"output": response.content})
 
             logger.info(f"Generated AI response for question: {question[:50]}...")
+            logger.debug(f"AI response: {response.content}")
             return response.content
 
         except Exception as e:
