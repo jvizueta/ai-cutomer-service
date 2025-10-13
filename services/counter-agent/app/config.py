@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     openai_api_key: Optional[str] = Field(default=None, alias="OPENAI_API_KEY")
     openrouter_api_key: Optional[str] = Field(default=None, alias="OPENROUTER_API_KEY")
     
+    
     # Model Configuration
     lc_model: str = Field(default="gpt-4o-mini", alias="LC_MODEL")
     lc_temperature: float = Field(default=0.2, alias="LC_TEMPERATURE")
@@ -22,6 +23,9 @@ class Settings(BaseSettings):
     host: str = "0.0.0.0"
     port: int = 8000
     reload: bool = False
+
+    # Redis Configuration
+    redis_url: str = Field(default=None, alias="REDIS_URL")
     
     class Config:
         env_file = ".env"
