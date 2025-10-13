@@ -53,11 +53,9 @@ class AIService:
         """Lazy initialization of Redis-based memory"""
         if self._memory is None and RedisChatMessageHistory is not None and ConversationBufferMemory is not None:
             logger.info("Initializing Redis-based memory")
-            client = redis.from_url(self.redis_url)
             chat_history = RedisChatMessageHistory(
                 session_id=self.session_id,
-                client=client,
-                # redis_url=self.redis_url
+                redis_url=self.redis_url
             )
             logger.info("Redis chat history initialized")
             self._memory = ConversationBufferMemory(
