@@ -22,11 +22,16 @@ class AIService:
         self.api_key = settings.openai_api_key or settings.openrouter_api_key
         self.model_name = settings.lc_model
         self.temperature = settings.lc_temperature
-        self.redis_url = getattr(settings, "redis_url", "redis://localhost:6379/0")
+        self.redis_url = settings.redis_url
         self.session_id = session_id
 
         if not self.api_key:
             logger.warning("No API key found for AI service")
+
+        if not self.redis_url:
+            logger.warning("No Redis URL found for AI service; memory will be disabled")
+        else:
+            logger.info(f"Using Redis URL: {self.redis_url}")
 
         self._llm = None
         self._memory = None
