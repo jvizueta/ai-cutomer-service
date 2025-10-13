@@ -74,16 +74,22 @@ class AIService:
                     return "AI service unavailable (initialization failed)"
 
             # Construct prompt based on language
+            logger.info(f"Generating response for question: {question[:50]} in language: {language}")
             if language.lower() in ["es", "spanish", "español"]:
                 prompt = f"Responde brevemente en español: {question}"
             else:
                 prompt = f"Answer briefly in {language}: {question}"
 
+            logger.debug(f"Using prompt: {prompt}")
             message = HumanMessage(content=prompt)
+            logger.debug("Sending message to LLM...")
             response = await self.llm.ainvoke([message])
-
+            logger.debug("Received response from LLM")
+            
             # Save to Redis memory
+            logger.debug("Saving conversation to Redis memory")
             if self.memory is not None:
+                logger.debug("Memory is available, saving context")
                 self.memory.save_context({"input": prompt}, {"output": response.content})
 
             logger.info(f"Generated AI response for question: {question[:50]}...")
