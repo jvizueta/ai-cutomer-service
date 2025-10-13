@@ -51,15 +51,18 @@ class AIService:
     def memory(self):
         """Lazy initialization of Redis-based memory"""
         if self._memory is None and RedisChatMessageHistory is not None and ConversationBufferMemory is not None:
+            logger.info("Initializing Redis-based memory")
             chat_history = RedisChatMessageHistory(
                 session_id=self.session_id,
                 url=self.redis_url
             )
+            logger.info("Redis chat history initialized")
             self._memory = ConversationBufferMemory(
                 memory_key="chat_history",
                 chat_memory=chat_history,
                 return_messages=True
             )
+            logger.info("Conversation buffer memory initialized")
         return self._memory
 
     async def generate_response(self, question: str, language: str = "en") -> str:
