@@ -6,6 +6,7 @@ try:
     from langchain_openai import ChatOpenAI
     from langchain_core.messages import HumanMessage
     from langchain_redis import RedisChatMessageHistory
+    import redis
     from langchain.memory import ConversationBufferMemory
 except ImportError:
     ChatOpenAI = None
@@ -52,9 +53,11 @@ class AIService:
         """Lazy initialization of Redis-based memory"""
         if self._memory is None and RedisChatMessageHistory is not None and ConversationBufferMemory is not None:
             logger.info("Initializing Redis-based memory")
+            client = redis.from_url(self.redis_url)
             chat_history = RedisChatMessageHistory(
                 session_id=self.session_id,
-                url=self.redis_url
+                client=client,
+                # redis_url=self.redis_url
             )
             logger.info("Redis chat history initialized")
             self._memory = ConversationBufferMemory(
