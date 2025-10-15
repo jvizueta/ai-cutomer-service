@@ -95,11 +95,17 @@ class AIService:
                 prompt = f"Answer briefly in {language}: {question}"
 
             logger.debug(f"Using prompt: {prompt}")
-            message = HumanMessage(content=prompt)
-            logger.debug("Sending message to LLM...")
-            response = await self.llm.ainvoke([message])
+
+            # Build conversation history for context
+            messages = []
+            if self.memory is not None and hasattr(self.memory, "chat_memory") and hasattr(self.memory.chat_memory, "messages"):
+                messages = list(self.memory.chat_memory.messages)
+            messages.append(HumanMessage(content=prompt))
+
+            logger.debug(f"Sending {len(messages)} messages to LLM...")
+            response = await self.llm.ainvoke(messages)
             logger.debug("Received response from LLM")
-            
+
             # Save to Redis memory
             logger.debug("Saving conversation to Redis memory")
             if self.memory is not None:
