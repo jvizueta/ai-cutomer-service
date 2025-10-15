@@ -6,7 +6,6 @@ try:
     from langchain_openai import ChatOpenAI
     from langchain_core.messages import HumanMessage
     from langchain_redis import RedisChatMessageHistory
-    import redis
     from langchain.memory import ConversationBufferMemory
 except ImportError:
     ChatOpenAI = None
@@ -52,18 +51,29 @@ class AIService:
     def memory(self):
         """Lazy initialization of Redis-based memory"""
         if self._memory is None and RedisChatMessageHistory is not None and ConversationBufferMemory is not None:
-            logger.info("Initializing Redis-based memory")
-            chat_history = RedisChatMessageHistory(
-                session_id=self.session_id,
-                redis_url=self.redis_url
-            )
-            logger.info("Redis chat history initialized")
-            self._memory = ConversationBufferMemory(
-                memory_key="chat_history",
-                chat_memory=chat_history,
-                return_messages=True
-            )
-            logger.info("Conversation buffer memory initialized")
+            try:
+                logger.info("Initializing Redis-based memory")
+                logger.debug(f"Redis URL: {self.redis_url}")
+                logger.debug(f"Session ID: {self.session_id}")
+                
+                chat_history = RedisChatMessageHistory(
+                    session_id=self.session_id,
+                    redis_url=self.redis_url
+                )
+                logger.info("Redis chat history initialized")
+                
+                self._memory = ConversationBufferMemory(
+                    memory_key="chat_history",
+                    chat_memory=chat_history,
+                    return_messages=True
+                )
+                logger.info("Conversation buffer memory initialized")
+                
+            except Exception as e:
+                logger.error(f"Failed to initialize Redis memory: {str(e)}")
+                logger.warning("Continuing without memory functionality")
+                self._memory = None
+                
         return self._memory
 
     async def generate_response(self, question: str, language: str = "en") -> str:
@@ -93,8 +103,13 @@ class AIService:
             # Save to Redis memory
             logger.debug("Saving conversation to Redis memory")
             if self.memory is not None:
-                logger.debug("Memory is available, saving context")
-                self.memory.save_context({"input": prompt}, {"output": response.content})
+                try:
+                    logger.debug("Memory is available, saving context")
+                    self.memory.save_context({"input": prompt}, {"output": response.content})
+                    logger.debug("Successfully saved conversation to Redis memory")
+                except Exception as memory_error:
+                    logger.warning(f"Failed to save conversation to Redis memory: {str(memory_error)}")
+                    # Continue without failing the whole request
 
             logger.info(f"Generated AI response for question: {question[:50]}...")
             logger.debug(f"AI response: {response.content}")
