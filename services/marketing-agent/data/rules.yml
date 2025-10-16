@@ -1,3 +1,5 @@
+rules:
+
 # Sample rules for marketing-agent
 
 - rule: Load brand context on session start
@@ -49,7 +51,6 @@
     - intent: despedida
     - action: utter_despedida
 
-rules:
 - rule: Responder saludos
   steps:
     - intent: saludo
