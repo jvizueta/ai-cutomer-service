@@ -1,0 +1,113 @@
+version: "3.1"
+
+intents:
+  - saludo
+  - despedida
+  - afirmar
+  - negar
+  - solicitar_info
+  - servicio_social_media
+  - servicio_google_ads
+  - servicio_diseno_web
+  - servicio_diseno_grafico
+  - servicio_publicidad_exterior
+  - pedir_precios
+  - solicitar_reunion
+  - proporcionar_fecha
+  - out_of_scope
+  - agradecimiento
+  - preguntar_ubicacion
+  - preguntar_nombre_agencia
+  - preguntar_telefono
+
+entities:
+  - fecha
+  - hora
+  - servicio
+
+slots:
+  servicio_interes:
+    type: text
+    influence_conversation: true
+  fecha_reunion:
+    type: text
+    influence_conversation: true
+  hora_reunion:
+    type: text
+    influence_conversation: true
+  nombre_cliente:
+    type: text
+    influence_conversation: false
+  company_name:
+    type: text
+    influence_conversation: false
+  agent_nickname:
+    type: text
+    influence_conversation: false
+
+responses:
+  utter_saludo:
+    - text: "¡Hola! Soy {agent_nickname}, asesor digital de {company_name}. ¿En qué área de marketing necesitas apoyo hoy? Redes sociales, página web, publicidad exterior, diseño gráfico o Google Ads?"
+    - text: "¡Bienvenido a {company_name}! ¿Qué área te interesa impulsar? Puedo ayudarte con social media, diseño web, publicidad exterior, diseño gráfico o campañas de Google Ads."
+  utter_despedida:
+    - text: "Gracias por tu tiempo. Si deseas avanzar, puedo ayudarte a agendar una reunión. ¡Hasta pronto!"
+  utter_pedir_servicio_inicial:
+    - text: "Perfecto. Para entender mejor tu necesidad, ¿podrías contarme brevemente tu objetivo principal? ¿Atraer clientes, mejorar presencia, aumentar ventas?"
+  utter_preguntas_social_media:
+    - text: "¿Cuál es el objetivo principal de tus redes? ¿Ventas, leads o branding?"
+    - text: "¿En qué redes tienes presencia actualmente o te gustaría estar? Manejamos Instagram, TikTok, Facebook y LinkedIn."
+  utter_preguntas_google_ads:
+    - text: "¿Cuentas ya con un sitio web activo?"
+    - text: "¿Qué producto o servicio te gustaría priorizar en campañas de búsqueda?"
+  utter_preguntas_diseno_web:
+    - text: "¿Qué tipo de sitio necesitas? Corporativa, e-commerce o landing page?"
+    - text: "¿Tienes alguna web de referencia que te guste?"
+  utter_preguntas_diseno_grafico:
+    - text: "¿Qué tipo de piezas requieres? Logotipo, manual de marca, piezas para redes o publicidad exterior?"
+    - text: "¿Necesitas también producción audiovisual como fotografía o video?"
+  utter_preguntas_publicidad_exterior:
+    - text: "¿En qué zonas de la ciudad te interesa tener presencia?"
+    - text: "¿Tienes algún formato en mente? Vallas, buses, taxis, activaciones de marca?"
+  utter_valor_social_media:
+    - text: "Nuestro servicio mensual incluye estrategia, planificación, diseño gráfico y video, redacción, gestión de pauta y reporte detallado. Creamos trajes a medida según objetivos."
+  utter_valor_google_ads:
+    - text: "Antes de lanzar campañas analizamos tu web para optimizar conversiones y configuramos Analytics, Tag Manager y seguimiento de conversiones."
+  utter_valor_diseno_web:
+    - text: "Diseñamos sitios rápidos, adaptables y optimizados para SEO en plataformas como WordPress y Prestashop."
+  utter_valor_diseno_grafico:
+    - text: "Creamos desde logotipos y manuales de marca hasta vallas y contenido audiovisual con equipo profesional."
+  utter_valor_publicidad_exterior:
+    - text: "Ofrecemos vallas tradicionales y digitales, publicidad en buses, taxis, mupis y activaciones de marca a nivel nacional."
+  utter_proponer_reunion:
+    - text: "El siguiente paso ideal es agendar una breve reunión para definir estrategia y presupuesto a medida. ¿Qué día te vendría bien?"
+  utter_pedir_fecha:
+    - text: "¿Qué fecha y hora te conviene para la reunión? Puedes darme un día tentativo."
+  utter_confirmar_reunion:
+    - text: "Perfecto, agendaré la reunión y te confirmaré. ¿Algo más antes de terminar?"
+  utter_precios_genericos:
+    - text: "Los costos dependen del alcance y objetivos. Por eso proponemos primero una reunión diagnóstica y luego una propuesta personalizada."
+  utter_out_of_scope:
+    - text: "Ese servicio no lo ofrecemos. ¿Te interesaría apoyo en social media, diseño web, publicidad exterior, diseño gráfico o Google Ads?"
+  utter_ubicacion:
+    - text: "Estamos ubicados en Guayaquil y trabajamos con marcas a nivel nacional."
+  utter_nombre_agencia:
+    - text: "La agencia es {company_name}, con más de 7 años de experiencia y más de 300 marcas atendidas."
+  utter_telefono:
+    - text: "Nuestro teléfono es 2245000. ¿Deseas que agendemos una reunión?"
+  utter_agradecimiento:
+    - text: "¡Gracias! ¿Deseas avanzar con una reunión para revisar tu caso más a fondo?"
+  utter_fallback:
+    - text: "No estoy seguro de haber entendido. ¿Podrías reformular o indicar el servicio que te interesa?"
+
+actions:
+  - action_set_servicio
+  - action_proporcionar_valor
+  - action_agendar_reunion
+  - action_check_availability_calendar
+  - action_handle_precios
+  - action_fallback
+  - action_load_brand_context
+
+session_config:
+  session_expiration_time: 30
+  carry_over_slots_to_new_session: true

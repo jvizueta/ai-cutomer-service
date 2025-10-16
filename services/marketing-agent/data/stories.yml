@@ -1,0 +1,41 @@
+version: "3.1"
+
+stories:
+- story: flujo social media a reunión
+  steps:
+    - intent: saludo
+    - action: utter_saludo
+    - intent: servicio_social_media
+    - action: action_set_servicio
+    - action: utter_preguntas_social_media
+    - intent: solicitar_info
+    - action: utter_valor_social_media
+    - intent: solicitar_reunion
+    - action: utter_proponer_reunion
+    - intent: proporcionar_fecha
+    - action: action_agendar_reunion
+    - action: utter_confirmar_reunion
+
+- story: pedir precios antes reunión
+  steps:
+    - intent: saludo
+    - action: utter_saludo
+    - intent: pedir_precios
+    - action: action_handle_precios
+    - intent: solicitar_reunion
+    - action: utter_proponer_reunion
+
+- story: diseño web flujo
+  steps:
+    - intent: servicio_diseno_web
+    - action: action_set_servicio
+    - action: utter_preguntas_diseno_web
+    - intent: solicitar_info
+    - action: utter_valor_diseno_web
+    - intent: pedir_precios
+    - action: action_handle_precios
+    - intent: solicitar_reunion
+    - action: utter_proponer_reunion
+    - intent: proporcionar_fecha
+    - action: action_agendar_reunion
+    - action: utter_confirmar_reunion

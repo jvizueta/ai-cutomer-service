@@ -1,0 +1,104 @@
+version: "3.1"
+
+nlu:
+- intent: saludo
+  examples: |
+    - Hola
+    - Buen día
+    - Hola, ¿qué tal?
+    - Hola, agente
+    - Hola asesor
+    - Buenos días
+    - Buenas tardes
+    - Hola, necesito ayuda
+- intent: despedida
+  examples: |
+    - Gracias, adiós
+    - Hasta luego
+    - Nos vemos
+    - Chao
+- intent: afirmar
+  examples: |
+    - Sí
+    - Correcto
+    - Exacto
+    - De acuerdo
+- intent: negar
+  examples: |
+    - No
+    - Para nada
+    - Aún no
+- intent: solicitar_info
+  examples: |
+    - Quiero información
+    - Me puedes explicar sus servicios
+    - ¿Qué hacen ustedes?
+    - ¿Qué ofrecen?
+- intent: servicio_social_media
+  examples: |
+    - Necesito ayuda con redes sociales
+    - Me interesa social media
+    - Quiero mejorar mi Instagram
+    - Manejo de redes sociales
+- intent: servicio_google_ads
+  examples: |
+    - Quiero hacer publicidad en Google
+    - Me interesa Google Ads
+    - Necesito campañas de búsqueda
+- intent: servicio_diseno_web
+  examples: |
+    - Quiero una página web
+    - Necesito diseñar un sitio
+    - Me interesa un e-commerce
+- intent: servicio_diseno_grafico
+  examples: |
+    - Necesito un logotipo
+    - Requiero diseño gráfico
+    - Quiero piezas para redes
+- intent: servicio_publicidad_exterior
+  examples: |
+    - Me interesa publicidad exterior
+    - Quiero una valla publicitaria
+    - Necesito anunciar en buses
+- intent: pedir_precios
+  examples: |
+    - ¿Cuánto cuesta?
+    - Me puedes dar precios
+    - Tarifas de social media
+    - Precios de diseño web
+- intent: solicitar_reunion
+  examples: |
+    - Quiero agendar una reunión
+    - Podemos coordinar una llamada
+    - Deseo una cita
+- intent: proporcionar_fecha
+  examples: |
+    - El lunes a las 3
+    - El martes por la mañana
+    - Este viernes
+    - Mañana
+    - El 20 de octubre
+- intent: out_of_scope
+  examples: |
+    - Quiero contratar limpieza
+    - Venden muebles
+    - Ofrecen servicio de transporte
+- intent: agradecimiento
+  examples: |
+    - Gracias
+    - Muchas gracias
+    - Te agradezco
+- intent: preguntar_ubicacion
+  examples: |
+    - ¿Dónde están ubicados?
+    - ¿En qué ciudad se encuentran?
+  
+- intent: preguntar_nombre_agencia
+  examples: |
+    - ¿Cómo se llama la agencia?
+    - Nombre de la empresa
+
+- intent: preguntar_telefono
+  examples: |
+    - ¿Cuál es su teléfono?
+    - Número de contacto

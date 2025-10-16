@@ -1,0 +1,37 @@
+version: "3.1"
+
+rules:
+- rule: Responder saludos
+  steps:
+    - intent: saludo
+    - action: utter_saludo
+
+- rule: Manejar despedidas
+  steps:
+    - intent: despedida
+    - action: utter_despedida
+
+- rule: Proveer ubicación
+  steps:
+    - intent: preguntar_ubicacion
+    - action: utter_ubicacion
+
+- rule: Proveer nombre agencia
+  steps:
+    - intent: preguntar_nombre_agencia
+    - action: utter_nombre_agencia
+
+- rule: Proveer teléfono
+  steps:
+    - intent: preguntar_telefono
+    - action: utter_telefono
+
+- rule: Fallback
+  steps:
+    - intent: nlu_fallback
+    - action: action_fallback
+
+- rule: Agradecimiento
+  steps:
+    - intent: agradecimiento
+    - action: utter_agradecimiento
