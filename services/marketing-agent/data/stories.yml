@@ -1,5 +1,5 @@
 # Sample stories for marketing-agent
-
+stories:
 - story: Saludo y presentación
   steps:
     - intent: saludo
@@ -90,9 +90,7 @@
   steps:
     - intent: negar
     - action: utter_fallback
-version: "3.1"
 
-stories:
 - story: flujo social media a reunión
   steps:
     - intent: saludo
