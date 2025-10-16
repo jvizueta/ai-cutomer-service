@@ -28,22 +28,28 @@ entities:
 slots:
   servicio_interes:
     type: text
-    influence_conversation: true
+    mappings:
+      - type: custom
   fecha_reunion:
     type: text
-    influence_conversation: true
+    mappings:
+      - type: custom
   hora_reunion:
     type: text
-    influence_conversation: true
+    mappings:
+      - type: custom
   nombre_cliente:
     type: text
-    influence_conversation: false
+    mappings:
+      - type: custom
   company_name:
     type: text
-    influence_conversation: false
+    mappings:
+      - type: custom
   agent_nickname:
     type: text
-    influence_conversation: false
+    mappings:
+      - type: custom
 
 responses:
   utter_saludo:
