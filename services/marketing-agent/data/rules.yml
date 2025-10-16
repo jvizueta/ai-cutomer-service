@@ -48,7 +48,6 @@
   steps:
     - intent: despedida
     - action: utter_despedida
-version: "3.1"
 
 rules:
 - rule: Responder saludos
