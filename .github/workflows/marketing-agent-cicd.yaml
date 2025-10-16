@@ -229,7 +229,7 @@ jobs:
           title: |
             [Auto] Update marketing-agent (${{ needs.build-and-push.outputs.overlay-dir }}) to ${{ needs.build-and-push.outputs.primary-tag }}
           body: |
-            ## 🤖 Automated Image Update
+            ## Automated Image Update
             
             This PR updates the marketing-agent image tag in the **${{ needs.build-and-push.outputs.env-name }}** environment.
             
