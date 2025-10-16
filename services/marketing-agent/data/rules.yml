@@ -1,3 +1,53 @@
+# Sample rules for marketing-agent
+
+- rule: Load brand context on session start
+  steps:
+    - action: action_load_brand_context
+
+- rule: Respond to out of scope
+  steps:
+    - intent: out_of_scope
+    - action: utter_out_of_scope
+
+- rule: Respond to fallback
+  steps:
+    - intent: negar
+    - action: utter_fallback
+
+- rule: Provide generic prices
+  steps:
+    - intent: pedir_precios
+    - action: utter_precios_genericos
+
+- rule: Confirm meeting
+  steps:
+    - intent: afirmar
+    - action: utter_confirmar_reunion
+
+- rule: Provide agency name
+  steps:
+    - intent: preguntar_nombre_agencia
+    - action: utter_nombre_agencia
+
+- rule: Provide agency phone
+  steps:
+    - intent: preguntar_telefono
+    - action: utter_telefono
+
+- rule: Provide agency location
+  steps:
+    - intent: preguntar_ubicacion
+    - action: utter_ubicacion
+
+- rule: Respond to gratitude
+  steps:
+    - intent: agradecimiento
+    - action: utter_agradecimiento
+
+- rule: End conversation
+  steps:
+    - intent: despedida
+    - action: utter_despedida
 version: "3.1"
 
 rules:
