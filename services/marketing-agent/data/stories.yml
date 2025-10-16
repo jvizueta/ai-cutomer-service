@@ -5,103 +5,88 @@ stories:
     - intent: saludo
     - action: utter_saludo
 
-- story: Solicitar servicio inicial
-  steps:
-    - intent: solicitar_info
-    - action: utter_pedir_servicio_inicial
 
-- story: Social media questions
   steps:
     - intent: servicio_social_media
     - action: utter_preguntas_social_media
     - intent: afirmar
-    - action: utter_valor_social_media
-
-- story: Google Ads questions
-  steps:
+    - action: utter_confirmar_reunion
     - intent: servicio_google_ads
     - action: utter_preguntas_google_ads
     - intent: afirmar
-    - action: utter_valor_google_ads
+    - action: utter_confirmar_reunion
+    - intent: servicio_diseno_web
+    - action: utter_preguntas_diseno_web
+    - intent: afirmar
+    - action: utter_confirmar_reunion
+    - intent: servicio_diseno_grafico
+    - action: utter_preguntas_diseno_grafico
+    - intent: afirmar
+    - action: utter_confirmar_reunion
+    - intent: servicio_publicidad_exterior
+    - action: utter_preguntas_publicidad_exterior
+    - intent: afirmar
+    - action: utter_confirmar_reunion
+    - intent: pedir_precios
+    - action: utter_confirmar_reunion
+    - intent: solicitar_info
+    - action: utter_confirmar_reunion
+    - intent: pedir_precios
+    - action: utter_precios_genericos
+    - action: utter_confirmar_reunion
+    - action: utter_confirmar_reunion
 
-- story: Diseño web questions
-  steps:
-  - intent: servicio_social_media
-  - action: utter_preguntas_social_media
-  - intent: afirmar
-  - action: utter_confirmar_reunion
-  - intent: servicio_google_ads
-  - action: utter_preguntas_google_ads
-  - intent: afirmar
-  - action: utter_confirmar_reunion
-  - intent: servicio_diseno_web
-  - action: utter_preguntas_diseno_web
-  - intent: afirmar
-  - action: utter_confirmar_reunion
-  - intent: servicio_diseno_grafico
-  - action: utter_preguntas_diseno_grafico
-  - intent: afirmar
-  - action: utter_confirmar_reunion
-  - intent: servicio_publicidad_exterior
-  - action: utter_preguntas_publicidad_exterior
-  - intent: afirmar
-  - action: utter_confirmar_reunion
-  - intent: pedir_precios
-  - action: utter_confirmar_reunion
-  - intent: solicitar_info
-  - action: utter_confirmar_reunion
-  - intent: pedir_precios
-  - action: utter_precios_genericos
-  - action: utter_confirmar_reunion
-  - action: utter_confirmar_reunion
-
-  - intent: pedir_precios
-  - action: utter_precios_genericos
-  - action: utter_confirmar_reunion
 - story: Preguntar ubicación
   steps:
     - intent: preguntar_ubicacion
     - action: utter_ubicacion
-  - action: utter_confirmar_reunion
+
 - story: Preguntar nombre agencia
   steps:
     - intent: preguntar_nombre_agencia
     - action: utter_nombre_agencia
-  - action: utter_confirmar_reunion
+
 - story: Preguntar teléfono
   steps:
     - intent: preguntar_telefono
+    - action: utter_telefono
 
-  - story: Preguntar ubicación
-    steps:
-      - intent: preguntar_ubicacion
-      - action: utter_ubicacion
+- story: Precios genéricos
+  steps:
+    - intent: pedir_precios
+    - action: utter_precios_genericos
 
-  - story: Preguntar nombre agencia
-    steps:
-      - intent: preguntar_nombre_agencia
-      - action: utter_nombre_agencia
+- story: Out of scope
+  steps:
+    - intent: out_of_scope
+    - action: utter_out_of_scope
 
-  - story: Preguntar teléfono
-    steps:
-      - intent: preguntar_telefono
-      - action: utter_telefono
+- story: Agradecimiento y despedida
+  steps:
+    - intent: agradecimiento
+    - action: utter_agradecimiento
+    - intent: despedida
+    - action: utter_despedida
 
-  - story: Precios genéricos
-    steps:
-      - intent: pedir_precios
-      - action: utter_precios_genericos
+- story: Fallback
+  steps:
+    - intent: negar
+    - action: utter_fallback
 
-  - story: Out of scope
-    steps:
-      - intent: out_of_scope
-      - action: utter_out_of_scope
-
-  - story: Agradecimiento y despedida
-    steps:
-      - intent: agradecimiento
-      - action: utter_agradecimiento
-      - intent: despedida
+- story: diseño web flujo
+  steps:
+    - intent: servicio_diseno_web
+    - action: action_set_servicio
+    - action: utter_preguntas_diseno_web
+    - intent: solicitar_info
+    - action: utter_valor_diseno_web
+    - intent: pedir_precios
+    - action: action_handle_precios
+    - intent: solicitar_reunion
+    - action: utter_proponer_reunion
+    - intent: proporcionar_fecha
+    - action: action_agendar_reunion
+    - action: utter_confirmar_reunion
       - action: utter_despedida
 
   - story: Fallback
