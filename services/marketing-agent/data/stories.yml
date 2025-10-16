@@ -54,8 +54,12 @@ stories:
   - action: utter_precios_genericos
   - intent: solicitar_info
   - action: utter_confirmar_reunion
+
   - intent: pedir_precios
   - action: utter_precios_genericos
+
+- story: Preguntar ubicación
+  steps:
     - intent: preguntar_ubicacion
     - action: utter_ubicacion
 
