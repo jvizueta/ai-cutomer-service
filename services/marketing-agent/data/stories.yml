@@ -26,36 +26,36 @@ stories:
 
 - story: Diseño web questions
   steps:
-    - intent: servicio_diseno_web
-    - action: utter_preguntas_diseno_web
-    - intent: afirmar
-    - action: utter_valor_diseno_web
-
-- story: Diseño gráfico questions
-  steps:
-    - intent: servicio_diseno_grafico
-    - action: utter_preguntas_diseno_grafico
-    - intent: afirmar
-    - action: utter_valor_diseno_grafico
-
-- story: Publicidad exterior questions
-  steps:
-    - intent: servicio_publicidad_exterior
-    - action: utter_preguntas_publicidad_exterior
-    - intent: afirmar
-    - action: utter_valor_publicidad_exterior
-
-- story: Proponer reunión
-  steps:
-    - intent: solicitar_reunion
-    - action: utter_proponer_reunion
-    - intent: proporcionar_fecha
-    - action: utter_pedir_fecha
-    - intent: afirmar
-    - action: utter_confirmar_reunion
-
-- story: Preguntar ubicación
-  steps:
+  - intent: servicio_social_media
+  - action: utter_preguntas_social_media
+  - intent: afirmar
+  - action: utter_confirmar_reunion
+  - intent: servicio_google_ads
+  - action: utter_preguntas_google_ads
+  - intent: afirmar
+  - action: utter_confirmar_reunion
+  - intent: servicio_diseno_web
+  - action: utter_preguntas_diseno_web
+  - intent: afirmar
+  - action: utter_confirmar_reunion
+  - intent: servicio_diseno_grafico
+  - action: utter_preguntas_diseno_grafico
+  - intent: afirmar
+  - action: utter_confirmar_reunion
+  - intent: servicio_publicidad_exterior
+  - action: utter_preguntas_publicidad_exterior
+  - intent: afirmar
+  - action: utter_confirmar_reunion
+  - intent: pedir_precios
+  - action: utter_precios_genericos
+  - intent: solicitar_info
+  - action: utter_confirmar_reunion
+  - intent: pedir_precios
+  - action: utter_precios_genericos
+  - intent: solicitar_info
+  - action: utter_confirmar_reunion
+  - intent: pedir_precios
+  - action: utter_precios_genericos
     - intent: preguntar_ubicacion
     - action: utter_ubicacion
 
