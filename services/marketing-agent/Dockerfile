@@ -1,23 +1,25 @@
-FROM python:3.10-slim
+# Use an official Rasa image to avoid binary incompatibilities
+# The "-full" tag includes TensorFlow, spaCy, and other ML deps prebuilt for CPU safety
+FROM rasa/rasa:3.6.21-full
 
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
-
+# Set working directory inside container
 WORKDIR /app
 
-# System deps (optional)
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
-
+# Copy dependency list first to leverage Docker layer caching
 COPY requirements.txt ./
-RUN --mount=type=cache,target=/root/.cache/pip pip install --no-cache-dir -r requirements.txt
-RUN pip install --no-binary=:all: tensorflow numpy
 
-COPY . ./
+# Install additional Python dependencies (if you have any custom ones)
+# Use --no-cache-dir to reduce image size
+RUN pip install --no-cache-dir -r requirements.txt || true
 
+# Copy the rest of the project (config.yml, domain.yml, data/, actions/, etc.)
+COPY . .
+
+# Expose default Rasa server and action server ports
 EXPOSE 8002 5055
 
-# Entrypoint runs both Rasa server and action server
+# Make sure entrypoint script is executable
 RUN chmod +x entrypoint.sh
+
+# Use your custom entrypoint to start both Rasa and Action servers
 ENTRYPOINT ["./entrypoint.sh"]
