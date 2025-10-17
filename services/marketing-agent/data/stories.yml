@@ -87,12 +87,12 @@ stories:
     - intent: proporcionar_fecha
     - action: action_agendar_reunion
     - action: utter_confirmar_reunion
-      - action: utter_despedida
+    - action: utter_despedida
 
-  - story: Fallback
-    steps:
-      - intent: negar
-      - action: utter_fallback
+- story: Fallback
+  steps:
+    - intent: negar
+    - action: utter_fallback
   steps:
     - intent: servicio_diseno_web
     - action: action_set_servicio
