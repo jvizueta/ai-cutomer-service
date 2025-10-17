@@ -53,7 +53,7 @@ stories:
     - intent: solicitar_info
     - action: utter_valor_diseno_web
     - intent: pedir_precios
-    - action: action_handle_precios
+    - action: utter_precios_genericos
     - intent: solicitar_reunion
     - action: utter_proponer_reunion
     - intent: proporcionar_fecha
