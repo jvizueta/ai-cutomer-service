@@ -1,4 +1,3 @@
-# Sample stories for marketing-agent
 stories:
 
 - story: Saludo y presentación
@@ -37,28 +36,21 @@ stories:
     - action: utter_confirmar_reunion
     - action: utter_confirmar_reunion
 
-- story: Preguntar ubicación
-
-  - story: Fallback
-    steps:
-      - intent: negar
-      - action: utter_fallback
-
-  - story: diseño web flujo
-    steps:
-      - intent: servicio_diseno_web
-      - action: action_set_servicio
-      - action: utter_preguntas_diseno_web
-      - intent: solicitar_info
-      - action: utter_valor_diseno_web
-      - intent: pedir_precios
-      - action: action_handle_precios
-      - intent: solicitar_reunion
-      - action: utter_proponer_reunion
-      - intent: proporcionar_fecha
-      - action: action_agendar_reunion
-      - action: utter_confirmar_reunion
-      - action: utter_despedida
+- story: diseño web flujo
+  steps:
+    - intent: servicio_diseno_web
+    - action: action_set_servicio
+    - action: utter_preguntas_diseno_web
+    - intent: solicitar_info
+    - action: utter_valor_diseno_web
+    - intent: pedir_precios
+    - action: action_handle_precios
+    - intent: solicitar_reunion
+    - action: utter_proponer_reunion
+    - intent: proporcionar_fecha
+    - action: action_agendar_reunion
+    - action: utter_confirmar_reunion
+    - action: utter_despedida
     - intent: servicio_diseno_web
     - action: action_set_servicio
     - action: utter_preguntas_diseno_web
@@ -77,16 +69,3 @@ stories:
   steps:
     - intent: negar
     - action: utter_fallback
-  steps:
-    - intent: servicio_diseno_web
-    - action: action_set_servicio
-    - action: utter_preguntas_diseno_web
-    - intent: solicitar_info
-    - action: utter_valor_diseno_web
-    - intent: pedir_precios
-    - action: action_handle_precios
-    - intent: solicitar_reunion
-    - action: utter_proponer_reunion
-    - intent: proporcionar_fecha
-    - action: action_agendar_reunion
-    - action: utter_confirmar_reunion
