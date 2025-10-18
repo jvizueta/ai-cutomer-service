@@ -167,19 +167,19 @@ jobs:
           app_id: ${{ vars.APP_ID }}
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
-      - name: Checkout k8s-apps-public repository
+      - name: Checkout k8s-manifests-public repository
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository_owner }}/k8s-apps-public
+          repository: ${{ github.repository_owner }}/k8s-manifests-public
           token: ${{ steps.generate_token.outputs.token || secrets.MANIFEST_REPO_TOKEN || secrets.GITHUB_TOKEN }}
-          path: k8s-apps-public
+          path: k8s-manifests-public
           ref: main
 
       - name: Update Kustomization
         id: update
         run: |
           # Use values from previous job
-          KUSTOMIZE_PATH="k8s-apps-public/ai-customer-service/counter-agent/overlays/${{ needs.build-and-push.outputs.overlay-dir }}/kustomization.yaml"
+          KUSTOMIZE_PATH="k8s-manifests-public/ai-customer-service/counter-agent/overlays/${{ needs.build-and-push.outputs.overlay-dir }}/kustomization.yaml"
           
           # Check if the kustomization file exists
           if [ ! -f "$KUSTOMIZE_PATH" ]; then
@@ -196,7 +196,7 @@ jobs:
           /tmp/yq eval -i '(.images[] | select(.name == "ghcr.io/jvizueta/ai-customer-service/counter-agent")).newTag = "${{ needs.build-and-push.outputs.primary-tag }}"' "$KUSTOMIZE_PATH"
           
           # Check if there are changes
-          cd k8s-apps-public
+          cd k8s-manifests-public
           if git diff --quiet; then
             echo "No changes detected"
             echo "changed=false" >> $GITHUB_OUTPUT
@@ -212,7 +212,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ steps.generate_token.outputs.token || secrets.MANIFEST_REPO_TOKEN || secrets.GITHUB_TOKEN }}
-          path: k8s-apps-public
+          path: k8s-manifests-public
           commit-message: |
             Update counter-agent image to ${{ needs.build-and-push.outputs.primary-tag }}
             
@@ -303,7 +303,7 @@ jobs:
               if [[ "${{ needs.update-k8s-manifest.outputs.pr-created }}" == "true" ]]; then
                 echo "✅ **Status:** Pull request created" >> $GITHUB_STEP_SUMMARY
                 echo "**PR URL:** ${{ needs.update-k8s-manifest.outputs.pr-url }}" >> $GITHUB_STEP_SUMMARY
-                echo "**Target:** \`k8s-apps-public/ai-customer-service/counter-agent/overlays/${{ needs.build-and-push.outputs.overlay-dir }}\`" >> $GITHUB_STEP_SUMMARY
+                echo "**Target:** \`k8s-manifests-public/ai-customer-service/counter-agent/overlays/${{ needs.build-and-push.outputs.overlay-dir }}\`" >> $GITHUB_STEP_SUMMARY
               else
                 echo "ℹ️ **Status:** No changes needed (image tag already up to date)" >> $GITHUB_STEP_SUMMARY
               fi
