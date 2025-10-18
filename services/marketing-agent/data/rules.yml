@@ -3,6 +3,7 @@ rules:
 # Sample rules for marketing-agent
 
 - rule: Load brand context on session start
+  conversation_start: true
   steps:
     - action: action_load_brand_context
 

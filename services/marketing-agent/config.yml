@@ -5,18 +5,20 @@ pipeline:
   - name: RegexFeaturizer
   - name: LexicalSyntacticFeaturizer
   - name: CountVectorsFeaturizer
-  - name: LanguageModelFeaturizer
-    model_name: "bert"
-    model_weights: "dccuchile/bert-base-spanish-wwm-cased"
+    OOV_token: "<OOV>"
+    token_pattern: (?u)\b\w+\b
+  # - name: LanguageModelFeaturizer
+  #   model_name: "bert"
+  #   model_weights: "dccuchile/bert-base-spanish-wwm-cased"
   - name: DIETClassifier
-    epochs: 50
+    epochs: 60
     constrain_similarities: true
   - name: EntitySynonymMapper
   - name: ResponseSelector
     epochs: 30
   - name: FallbackClassifier
-    threshold: 0.4
-    ambiguity_threshold: 0.1
+    threshold: 0.35
+    ambiguity_threshold: 0.05
 policies:
   - name: MemoizationPolicy
   - name: RulePolicy
