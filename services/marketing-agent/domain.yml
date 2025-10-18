@@ -53,8 +53,8 @@ slots:
 
 responses:
   utter_saludo:
-    - text: "¡Hola! Soy {agent_nickname}, asesor digital de {company_name}. ¿En qué área de marketing necesitas apoyo hoy? Redes sociales, página web, publicidad exterior, diseño gráfico o Google Ads?"
-    - text: "¡Bienvenido a {company_name}! ¿Qué área te interesa impulsar? Puedo ayudarte con social media, diseño web, publicidad exterior, diseño gráfico o campañas de Google Ads."
+    - text: "¡Hola! Soy {AGENT_NICKNAME}, asesor digital de {COMPANY_NAME}. ¿En qué área de marketing necesitas apoyo hoy? Redes sociales, página web, publicidad exterior, diseño gráfico o Google Ads?"
+    - text: "¡Bienvenido a {COMPANY_NAME}! ¿Qué área te interesa impulsar? Puedo ayudarte con social media, diseño web, publicidad exterior, diseño gráfico o campañas de Google Ads."
   utter_despedida:
     - text: "Gracias por tu tiempo. Si deseas avanzar, puedo ayudarte a agendar una reunión. ¡Hasta pronto!"
   utter_pedir_servicio_inicial:
@@ -97,7 +97,7 @@ responses:
   utter_ubicacion:
     - text: "Estamos ubicados en Guayaquil y trabajamos con marcas a nivel nacional."
   utter_nombre_agencia:
-    - text: "La agencia es {company_name}, con más de 7 años de experiencia y más de 300 marcas atendidas."
+    - text: "La agencia es {COMPANY_NAME}, con más de 7 años de experiencia y más de 300 marcas atendidas."
   utter_telefono:
     - text: "Nuestro teléfono es 2245000. ¿Deseas que agendemos una reunión?"
   utter_agradecimiento:
