@@ -4,6 +4,7 @@ httpx
 python-dotenv
 pydantic
 pydantic-settings
-
+langchain
+langchain-core
 redis>=5.0.4
 langchain-redis>=0.2.4

@@ -3,14 +3,16 @@ import logging
 import httpx
 from ..config import settings
 
+logger = logging.getLogger(__name__)
+
 try:
     from langchain_redis import RedisChatMessageHistory
     from langchain.memory import ConversationBufferMemory
 except ImportError:
     RedisChatMessageHistory = None
     ConversationBufferMemory = None
+    logger.warning("langchain or langchain-redis not installed; Redis memory functionality will be disabled")
 
-logger = logging.getLogger(__name__)
 
 
 
@@ -35,7 +37,7 @@ class AIService:
     @property
     def memory(self):
         """Lazy initialization of Redis-based memory"""
-        if self._memory is None and RedisChatMessageHistory is not None and ConversationBufferMemory is not None and self.redis_url:
+        if self._memory is None and RedisChatMessageHistory is not None and ConversationBufferMemory is not None:
             try:
                 logger.info("Initializing Redis-based memory")
                 logger.debug(f"Redis URL: {self.redis_url}")
@@ -85,19 +87,20 @@ class AIService:
                 content = data["choices"][0]["message"]["content"]
                 logger.debug("Received response from Ollama")
 
-                # Save to Redis memory
-                logger.debug("Saving conversation to Redis memory")
-                if self.memory is not None:
-                    try:
-                        logger.debug("Memory is available, saving context")
-                        self.memory.chat_memory.add_user_message(prompt)
-                        self.memory.chat_memory.add_ai_message(content)
-                        logger.debug("Successfully saved conversation to Redis memory")
-                    except Exception as memory_error:
-                        logger.warning(f"Failed to save conversation to Redis memory: {str(memory_error)}")
-                logger.info(f"Generated AI response for question: {question[:50]}...")
-                logger.debug(f"AI response: {content}")
-                return content
+            # Save to Redis memory (use save_context like counter-agent)
+            logger.debug("Saving conversation to Redis memory")
+            if self.memory is not None:
+                try:
+                    logger.debug("Memory is available, saving context")
+                    self.memory.save_context({"input": prompt}, {"output": content})
+                    logger.debug("Successfully saved conversation to Redis memory")
+                except Exception as memory_error:
+                    logger.warning(f"Failed to save conversation to Redis memory: {str(memory_error)}")
+            else:
+                logger.debug("No memory available; skipping save to Redis")
+            logger.info(f"Generated AI response for question: {question[:50]}...")
+            logger.debug(f"AI response: {content}")
+            return content
 
         except Exception as e:
             logger.error(f"Error generating AI response: {str(e)}")
