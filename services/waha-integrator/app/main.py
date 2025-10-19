@@ -3,7 +3,7 @@ load_dotenv()
 from fastapi import FastAPI
 from .models import WAHAWebhookReq
 from .services.waha_service import WAHAService
-from .services.counter_agent_service import CounterAgentService
+from .services.info_agent_service import InfoAgentService
 from .config import settings
 import logging
 
@@ -11,14 +11,14 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="WAHA Integrator", version="0.1.0")
 waha_service = WAHAService()
-counter_agent_service = CounterAgentService()
+info_agent_service = InfoAgentService()
 
 @app.get("/healthz")
 async def healthz():
     return {
         "ok": True,
         "waha_service_available": waha_service.is_available(),
-        "counter_agent_service_available": counter_agent_service.is_available(),
+        "info_agent_service_available": info_agent_service.is_available(),
         "default_language": settings.default_language  # Show current config
     }
 
@@ -40,8 +40,8 @@ async def waha_webhook(req: WAHAWebhookReq):
     
     logger.info(f"Processing message from {chat_id}: {message[:100]}...")
     
-    # Get AI response from counter-agent service - USE CONFIG VALUE
-    ai_response = await counter_agent_service.ask(message, language=settings.default_language)
+    # Get AI response from info-agent service - USE CONFIG VALUE
+    ai_response = await info_agent_service.ask(message, language=settings.default_language)
     logger.info(f"AI response: {ai_response[:100]}...")
     
     # Send back via WAHA
