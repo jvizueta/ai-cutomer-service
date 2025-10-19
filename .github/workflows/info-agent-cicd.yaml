@@ -1,0 +1,289 @@
+name: Info Agent CI/CD
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'services/info-agent/**'
+      - '.github/workflows/info-agent-cicd.yaml'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'services/info-agent/**'
+      - '.github/workflows/info-agent-cicd.yaml'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - prod
+      update_manifest:
+        description: 'Update K8s manifest'
+        required: true
+        default: true
+        type: boolean
+      custom_tag:
+        description: 'Custom image tag (optional, leave empty for default)'
+        required: false
+        type: string
+
+env:
+  registry: ghcr.io
+  username: ${{ github.repository_owner }}
+  password: ${{ secrets.GITHUB_TOKEN }}
+  IMAGE_NAME: ghcr.io/${{ github.repository }}/info-agent
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      primary-tag: ${{ steps.tags.outputs.primary-tag }}
+      env-name: ${{ steps.tags.outputs.env-name }}
+      overlay-dir: ${{ steps.tags.outputs.overlay-dir }}
+      all-tags: ${{ steps.tags.outputs.all-tags }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to registry
+        run: echo "${{ env.password }}" | docker login ${{ env.registry }} -u ${{ env.username }} --password-stdin
+
+      - name: Determine tags based on trigger
+        id: tags
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            if [[ "${{ inputs.environment }}" == "prod" ]]; then
+              CUSTOM_TAG="${{ inputs.custom_tag }}"
+              if [[ -n "$CUSTOM_TAG" ]]; then
+                echo "TAGS=$IMAGE_NAME:$CUSTOM_TAG,$IMAGE_NAME:prod-manual-${{ github.sha }}" >> $GITHUB_ENV
+                echo "primary-tag=$CUSTOM_TAG" >> $GITHUB_OUTPUT
+              else
+                echo "TAGS=$IMAGE_NAME:latest,$IMAGE_NAME:prod-${{ github.sha }},$IMAGE_NAME:stable" >> $GITHUB_ENV
+                echo "primary-tag=prod-${{ github.sha }}" >> $GITHUB_OUTPUT
+              fi
+              echo "ENV_TAG=PROD" >> $GITHUB_ENV
+              echo "env-name=prod" >> $GITHUB_OUTPUT
+              echo "overlay-dir=prod" >> $GITHUB_OUTPUT
+              echo "all-tags=$TAGS" >> $GITHUB_OUTPUT
+            else
+              CUSTOM_TAG="${{ inputs.custom_tag }}"
+              if [[ -n "$CUSTOM_TAG" ]]; then
+                echo "TAGS=$IMAGE_NAME:$CUSTOM_TAG,$IMAGE_NAME:dev-manual-${{ github.sha }}" >> $GITHUB_ENV
+                echo "primary-tag=$CUSTOM_TAG" >> $GITHUB_OUTPUT
+              else
+                echo "TAGS=$IMAGE_NAME:dev,$IMAGE_NAME:dev-${{ github.sha }},$IMAGE_NAME:dev-latest" >> $GITHUB_ENV
+                echo "primary-tag=dev-${{ github.sha }}" >> $GITHUB_OUTPUT
+              fi
+              echo "ENV_TAG=DEV" >> $GITHUB_ENV
+              echo "env-name=dev" >> $GITHUB_OUTPUT
+              echo "overlay-dir=dev" >> $GITHUB_OUTPUT
+              echo "all-tags=$TAGS" >> $GITHUB_OUTPUT
+            fi
+          elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "TAGS=$IMAGE_NAME:latest,$IMAGE_NAME:prod-${{ github.sha }},$IMAGE_NAME:stable" >> $GITHUB_ENV
+            echo "ENV_TAG=PROD" >> $GITHUB_ENV
+            echo "primary-tag=prod-${{ github.sha }}" >> $GITHUB_OUTPUT
+            echo "env-name=prod" >> $GITHUB_OUTPUT
+            echo "overlay-dir=prod" >> $GITHUB_OUTPUT
+            echo "all-tags=$IMAGE_NAME:latest,$IMAGE_NAME:prod-${{ github.sha }},$IMAGE_NAME:stable" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+            echo "TAGS=$IMAGE_NAME:dev,$IMAGE_NAME:dev-${{ github.sha }},$IMAGE_NAME:dev-latest" >> $GITHUB_ENV
+            echo "ENV_TAG=DEV" >> $GITHUB_ENV
+            echo "primary-tag=dev-${{ github.sha }}" >> $GITHUB_OUTPUT
+            echo "env-name=dev" >> $GITHUB_OUTPUT
+            echo "overlay-dir=dev" >> $GITHUB_OUTPUT
+            echo "all-tags=$IMAGE_NAME:dev,$IMAGE_NAME:dev-${{ github.sha }},$IMAGE_NAME:dev-latest" >> $GITHUB_OUTPUT
+          else
+            echo "TAGS=$IMAGE_NAME:pr-${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+            echo "ENV_TAG=PR-${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+            echo "primary-tag=pr-${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+            echo "all-tags=$IMAGE_NAME:pr-${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build Docker image
+        run: |
+          cd services/info-agent
+          docker build \
+            --label "environment=${{ env.ENV_TAG }}" \
+            --label "commit=${{ github.sha }}" \
+            --label "build_date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+            --label "version=${{ github.run_number }}" \
+            --label "triggered_by=${{ github.event_name }}" \
+            -t $IMAGE_NAME:build .
+
+      - name: Tag images
+        run: |
+          IFS=',' read -ra TAG_ARRAY <<< "${{ env.TAGS }}"
+          for tag in "${TAG_ARRAY[@]}"; do
+            echo "Tagging as $tag"
+            docker tag $IMAGE_NAME:build $tag
+          done
+
+      - name: Push images
+        run: |
+          IFS=',' read -ra TAG_ARRAY <<< "${{ env.TAGS }}"
+          for tag in "${TAG_ARRAY[@]}"; do
+            echo "Pushing $tag"
+            docker push $tag
+          done
+
+  update-k8s-manifest:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'push' && github.actor != 'github-actions[bot]') ||
+      (github.event_name == 'workflow_dispatch' && inputs.update_manifest == true)
+    outputs:
+      pr-created: ${{ steps.update.outputs.changed }}
+      pr-url: ${{ steps.create-pr.outputs.pull-request-url }}
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        if: ${{ vars.APP_ID }}
+        with:
+          app_id: ${{ vars.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - name: Checkout k8s-manifests-public repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/k8s-manifests-public
+          token: ${{ steps.generate_token.outputs.token || secrets.MANIFEST_REPO_TOKEN || secrets.GITHUB_TOKEN }}
+          path: k8s-manifests-public
+          ref: main
+
+      - name: Update Kustomization
+        id: update
+        run: |
+          KUSTOMIZE_PATH="k8s-manifests-public/ai-customer-service/info-agent/overlays/${{ needs.build-and-push.outputs.overlay-dir }}/kustomization.yaml"
+          if [ ! -f "$KUSTOMIZE_PATH" ]; then
+            echo "Kustomization file not found: $KUSTOMIZE_PATH"
+            echo "changed=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          wget -qO /tmp/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          chmod +x /tmp/yq
+          /tmp/yq eval -i '(.images[] | select(.name == "ghcr.io/jvizueta/ai-customer-service/info-agent")).newTag = "${{ needs.build-and-push.outputs.primary-tag }}"' "$KUSTOMIZE_PATH"
+          cd k8s-manifests-public
+          if git diff --quiet; then
+            echo "No changes detected"
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected"
+            echo "changed=true" >> $GITHUB_OUTPUT
+            git diff
+          fi
+
+      - name: Create Pull Request
+        id: create-pr
+        if: steps.update.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ steps.generate_token.outputs.token || secrets.MANIFEST_REPO_TOKEN || secrets.GITHUB_TOKEN }}
+          path: k8s-manifests-public
+          commit-message: |
+            Update info-agent image to ${{ needs.build-and-push.outputs.primary-tag }}
+            
+            Automated image update from ai-customer-service workflow run #${{ github.run_number }}
+            Source commit: ${{ github.repository }}@${{ github.sha }}
+            Triggered by: ${{ github.event_name }}
+          title: |
+            [Auto] Update info-agent (${{ needs.build-and-push.outputs.overlay-dir }}) to ${{ needs.build-and-push.outputs.primary-tag }}
+          body: |
+            ## 🤖 Automated Image Update
+            
+            This PR updates the info-agent image tag in the **${{ needs.build-and-push.outputs.env-name }}** environment.
+            
+            ### Changes
+            - **Application**: info-agent
+            - **Image**: `ghcr.io/jvizueta/ai-customer-service/info-agent`
+            - **New Tag**: `${{ needs.build-and-push.outputs.primary-tag }}`
+            - **Environment**: ${{ needs.build-and-push.outputs.env-name }} (`${{ needs.build-and-push.outputs.overlay-dir }}` overlay)
+            - **File**: `ai-customer-service/info-agent/overlays/${{ needs.build-and-push.outputs.overlay-dir }}/kustomization.yaml`
+            
+            ### Source
+            - **Source Repository**: [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }})
+            - **Source Branch**: ${{ github.ref_name }}
+            - **Source Commit**: [`${{ github.sha }}`](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
+            - **Workflow Run**: [#${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            - **Triggered by**: @${{ github.actor }} via ${{ github.event_name }}
+            ${{ github.event_name == 'workflow_dispatch' && format('- **Manual trigger options**: Environment={0}, Custom tag={1}', inputs.environment, inputs.custom_tag || 'none') || '' }}
+            
+            ### Deployment
+            After merging this PR, ArgoCD will automatically detect the change and sync the application.
+            
+            ---
+            *This PR was automatically generated by the ai-customer-service CI/CD pipeline.*
+          branch: update-info-agent-${{ needs.build-and-push.outputs.overlay-dir }}-${{ github.sha }}
+          delete-branch: true
+          base: main
+          labels: |
+            automated
+            image-update
+            info-agent
+            ${{ needs.build-and-push.outputs.env-name }}
+            ${{ github.event_name == 'workflow_dispatch' && 'manual-trigger' || '' }}
+          assignees: ${{ github.actor }}
+
+  summary:
+    needs: [build-and-push, update-k8s-manifest]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Generate workflow summary
+        run: |
+          echo "# 📊 Info Agent CI/CD Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "## 🎯 Manual Trigger" >> $GITHUB_STEP_SUMMARY
+            echo "**Environment:** ${{ inputs.environment }}" >> $GITHUB_STEP_SUMMARY
+            echo "**Update Manifest:** ${{ inputs.update_manifest }}" >> $GITHUB_STEP_SUMMARY
+            echo "**Custom Tag:** ${{ inputs.custom_tag || 'none (using default)' }}" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "## 🐳 Docker Image" >> $GITHUB_STEP_SUMMARY
+          if [[ "${{ needs.build-and-push.result }}" == "success" ]]; then
+            echo "✅ **Status:** Successfully built and pushed" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "**Environment:** ${{ needs.build-and-push.outputs.env-name }}" >> $GITHUB_STEP_SUMMARY
+            echo "**Primary Tag:** \`${{ needs.build-and-push.outputs.primary-tag }}\`" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "**All Tags:**" >> $GITHUB_STEP_SUMMARY
+            IFS=',' read -ra TAG_ARRAY <<< "${{ needs.build-and-push.outputs.all-tags }}"
+            for tag in "${TAG_ARRAY[@]}"; do
+              echo "- \`$tag\`" >> $GITHUB_STEP_SUMMARY
+            done
+          else
+            echo "❌ **Status:** Failed to build/push image" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 📝 Kubernetes Manifest Update" >> $GITHUB_STEP_SUMMARY
+          if [[ "${{ github.event_name }}" == "push" ]] || [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.update_manifest }}" == "true" ]]; then
+            if [[ "${{ needs.update-k8s-manifest.result }}" == "success" ]]; then
+              if [[ "${{ needs.update-k8s-manifest.outputs.pr-created }}" == "true" ]]; then
+                echo "✅ **Status:** Pull request created" >> $GITHUB_STEP_SUMMARY
+                echo "**PR URL:** ${{ needs.update-k8s-manifest.outputs.pr-url }}" >> $GITHUB_STEP_SUMMARY
+                echo "**Target:** \`k8s-manifests-public/ai-customer-service/info-agent/overlays/${{ needs.build-and-push.outputs.overlay-dir }}\`" >> $GITHUB_STEP_SUMMARY
+              else
+                echo "ℹ️ **Status:** No changes needed (image tag already up to date)" >> $GITHUB_STEP_SUMMARY
+              fi
+            elif [[ "${{ needs.update-k8s-manifest.result }}" == "skipped" ]]; then
+              echo "⏭️ **Status:** Skipped (not requested or bot commit)" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "❌ **Status:** Failed to update manifest" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "ℹ️ **Status:** Not applicable (pull request build or manifest update disabled)" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "*Workflow run #${{ github.run_number }} completed at $(date -u +'%Y-%m-%d %H:%M:%S UTC')*" >> $GITHUB_STEP_SUMMARY
