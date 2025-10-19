@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     
     # Service URLs
     waha_base_url: str = Field(default="http://waha.waha-infra.svc.cluster.local:3000", alias="WAHA_BASE_URL")
-    counter_agent_base_url: str = Field(default="http://counter-agent.counter-agent-ns.svc.cluster.local:8000", alias="COUNTER_AGENT_BASE_URL")
+    info_agent_base_url: str = Field(default="http://info-agent.info-agent-ns.svc.cluster.local:8000", alias="INFO_AGENT_BASE_URL")
     
     # WAHA API Configuration
     waha_api_key: Optional[str] = Field(default=None, alias="WAHA_API_KEY")
