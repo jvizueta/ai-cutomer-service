@@ -60,7 +60,7 @@ class AIService:
         return self._memory
 
     async def generate_response(self, question: str, language: str = "en") -> str:
-        """Generate AI response for a given question and store in Redis memory"""
+        """Generate AI response for a given question and store in Redis memory, sending full conversation history to Ollama."""
         try:
             logger.info(f"Generating response for question: {question[:50]} in language: {language}")
             # Construct prompt based on language
@@ -71,12 +71,23 @@ class AIService:
 
             logger.debug(f"Using prompt: {prompt}")
 
+            # Build conversation history for context
+            messages = []
+            if self.memory is not None and hasattr(self.memory, "chat_memory") and hasattr(self.memory.chat_memory, "messages"):
+                # Convert stored messages to Ollama format
+                for m in self.memory.chat_memory.messages:
+                    if hasattr(m, "type") and hasattr(m, "content"):
+                        if m.type == "human":
+                            messages.append({"role": "user", "content": m.content})
+                        elif m.type == "ai":
+                            messages.append({"role": "assistant", "content": m.content})
+            # Add the new user prompt
+            messages.append({"role": "user", "content": prompt})
+
             payload = {
                 "model": self.model,
                 "temperature": self.temperature,
-                "messages": [
-                    {"role": "user", "content": prompt}
-                ]
+                "messages": messages
             }
             logger.debug(f"Payload for Ollama: {payload}")
 
