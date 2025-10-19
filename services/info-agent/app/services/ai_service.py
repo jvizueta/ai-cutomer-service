@@ -42,7 +42,7 @@ class AIService:
                 logger.debug(f"Session ID: {self.session_id}")
                 chat_history = RedisChatMessageHistory(
                     session_id=self.session_id,
-                    url=self.redis_url
+                    redis_url=self.redis_url
                 )
                 logger.info("Redis chat history initialized")
                 self._memory = ConversationBufferMemory(
