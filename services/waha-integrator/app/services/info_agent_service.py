@@ -8,7 +8,7 @@ class InfoAgentService:
     """Adapter for calling the info-agent service from waha-integrator."""
 
     def __init__(self):
-        self.base_url = settings.info_agent_url  # e.g. "http://info-agent:8000"
+        self.base_url = settings.info_agent_base_url  # e.g. "http://info-agent:8000"
 
     async def ask(self, question: str, language: str = "en") -> str:
         payload = {"question": question, "language": language}
