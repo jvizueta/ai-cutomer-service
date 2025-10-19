@@ -87,7 +87,7 @@ class AIService:
 
                 # Save to Redis memory
                 logger.debug("Saving conversation to Redis memory")
-                if self.memory:
+                if self.memory is not None:
                     try:
                         logger.debug("Memory is available, saving context")
                         self.memory.chat_memory.add_user_message(prompt)
