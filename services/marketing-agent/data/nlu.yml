@@ -11,66 +11,1266 @@ nlu:
     - Buenos días
     - Buenas tardes
     - Hola, necesito ayuda
+    - Hola!
+    - Holaaa 👋
+    - Buenas!
+    - Qué tal?
+    - Buenas noches
+    - Buenas, equipo
+    - Hola, necesito info
+    - Hola, me atienden?
+    - Hola!!
+    - Buenas 👋
+    - Hola buen día
+    - Hola buenas tardes
+    - Aló
+    - Buenas, consulta rápida
+    - Saludos
+    - Saludos cordiales
+    - Hey!
+    - Oe, hola
+    - Hola chicos
+    - Qué más!
+    - Buenas 😀
+    - Holaa, una pregunta
+    - Hola, ¿me ayudan?
+    - Hola, por favor
+    - Buenasss
+    - Hola 🙂
+    - Hola ☀️
+    - Hola 👋 ¿hay alguien?
+    - Buenas, quisiera información
+    - Holas
+    - Buen día 👋
+    - Muy buenos días
+    - Muy buenas
+    - Hola crack
+    - Hola equipo de soporte
+    - Hola asesor/a
+    - Buenas noches 🌙
+    - Qué hubo?
+    - Quiubo
+    - Hola, una duda
+    - Hola estimados
+    - Hola, necesito orientación
+    - Buen día, consulta
+    - Hola, ¿cómo están?
+    - Hola, ¿me pueden asistir?
+    - Hola, ¿tienen un momento?
+    - Buenos días con todos
+    - Buenos días, equipo
+    - Buenas tardes, consulta
+    - Hola, ¿qué tal el día?
+    - Hola, necesito cotización
+    - Hola agente
+    - Hola gente
+    - Hola, ¿me guían?
+    - Hola, ¿me orientan?
+    - Hola, ¿podemos hablar?
+    - Buen día 🙂
+    - Hola!! Necesito ayuda
+    - Hola, por aquí
+    - Hola, estoy interesado
+    - Hola, consulta rápida
+    - Hola, ¿atienden por aquí?
+    - Hola, ¿quién me ayuda?
+    - Buenas, ¿me brindan info?
+    - Hola, ¿me dan una mano?
+    - Hola, ¿podemos conversar?
+    - Hola, ¿disponibles ahora?
+    - Holita
+    - Buenas, ¿algún asesor?
+    - Buenas tardes 👋
+    - Hola, ¿tienen tiempo?
+    - Hola, ¿puedo preguntar?
+    - Hola estimad@s
+    - Hola, ¿trabajan hoy?
+    - Hola, ¿qué ofrecen?
+    - Hola, ¿me indican por favor?
+    - Hola, ¿me asesoran?
+    - Hola, requiero soporte
+    - Hola, ¿me ayudan con una duda?
+    - Hola, ¿quién me orienta?
+    - Hola, ¿podemos coordinar?
+    - Hola, vengo por info
+    - Hola, ¿me pasan detalles?
+    - Holaaa, ¿me atienden?
+    - Buenas! ¿cómo van?
+    - Hola, ¿me pueden cotizar?
+    - Hola, ¿qué tal equipo?
+    - Hola, ¿están disponibles?
+    - Hola, requiero información
+    - Hola, ¿me comentan?
+    - Hola, ¿me cuentan sus servicios?
+    - Hola, ¿queda alguien en línea?
+    - Hola, ¿me pueden escribir?
+    - Hola, ¿puedo hacer una consulta?
+    - Hola, busco asesoría
+    - Hola, ¿me contactan?
+    - Hola, ¿me dan soporte?
+    - Hola, ¿puedo pedir info?
+    - Hola, ¿me guían por favor?
+    - Hola, me atienden?!
 - intent: despedida
   examples: |
     - Gracias, adiós
     - Hasta luego
     - Nos vemos
     - Chao
+    - Hasta pronto
+    - Nos hablamos
+    - Que estén bien
+    - Chao, gracias
+    - Muchas gracias, hasta luego
+    - Bye
+    - Nos vemos pronto
+    - Listo, gracias!
+    - Gracias, buen día
+    - Gracias, buenas tardes
+    - Gracias por la ayuda, chao
+    - Gracias, me retiro
+    - Hasta la próxima
+    - Nos vemos, cuidense
+    - Quedo atento, gracias
+    - Gracias, seguimos en contacto
+    - Eso es todo, gracias
+    - Gracias, bendiciones
+    - Gracias, hasta mañana
+    - Gracias y éxitos
+    - Me despido, gracias
+    - Un saludo, hasta luego
+    - Gracias por su tiempo
+    - Nos leemos
+    - Me voy, gracias
+    - Listo, quedo atento
+    - Perfecto, gracias
+    - Ok, gracias
+    - Muchas gracias, nos vemos
+    - Listo por hoy, gracias
+    - Gracias totales
+    - Gracias! nos vemos
+    - Saludos, chao
+    - Hasta más tarde
+    - Hasta pronto!
+    - Excelente, gracias, chao
+    - Buen día, gracias
+    - Gracias, cuídense
+    - Gracias por todo
+    - Gracias, quedamos en contacto
+    - Gracias, me avisan
+    - Gracias, hablamos luego
+    - Gracias, bye
+    - Gracias, nos vemos luego
+    - Gracias, estaré pendiente
+    - Gracias por la atención
+    - Gracias, hasta la próxima
+    - Gracias, chao chao
+    - Nos vemos luego
+    - Nos vemos 👋
+    - Gracias, que descansen
+    - Mil gracias, adiós
+    - Agradecido, hasta luego
+    - Listo, hasta luego
+    - Hecho, gracias
+    - Perfecto, hasta luego
+    - Ok, bye
+    - Hasta otra
+    - Nos vemos mañana
+    - Listo, seguimos luego
+    - Hasta luego y gracias
+    - Gracias por su tiempo, chao
+    - Saludos y gracias
+    - Bien, adiós
+    - Me despido 👋
+    - Eso era todo, gracias
+    - Cierro por acá, gracias
+    - Gracias por la info, chao
+    - Nos vemos, gracias
+    - Ok, quedamos así, gracias
+    - Gracias, hablamos más tarde
+    - Gracias! hasta pronto
+    - Gracias, hasta entonces
+    - Gracias, que tengan buen día
+    - Me desconecto, gracias
+    - Gracias, hasta luego!
+    - Chao pescao
+    - Nos vemos al rato
+    - Listo, muchas gracias
+    - Quedo atento, hasta luego
+    - Nos despedimos, gracias
+    - Gracias por su apoyo, chao
+    - Muy amables, gracias
+    - Todo claro, gracias
+    - Entendido, gracias, adiós
+    - Excelente, gracias
+    - Gracias, saludos
+    - Gracias, éxitos
+    - Hasta otra ocasión
+    - Nos vemos, un gusto
+    - Que estén bien!
+    - Chao, gracias!
+    - Muchas gracias, hasta luego!
+    - Bye!
+    - Nos vemos pronto!
+    - Listo, gracias!!
+    - Gracias, buen día!
+    - Gracias, buenas tardes!
+    - Gracias por la ayuda, chao!
+    - Gracias, me retiro!
 - intent: afirmar
   examples: |
     - Sí
     - Correcto
     - Exacto
     - De acuerdo
+    - Sii
+    - Siii
+    - Sí, claro
+    - Claro que sí
+    - Tal cual
+    - Ajá
+    - Sí, por favor
+    - Sí, gracias
+    - Sí, me parece
+    - Sí, confirmado
+    - Sí, estoy de acuerdo
+    - Sí, así es
+    - Sí, suena bien
+    - Sí, procede
+    - Sí, aprobemos
+    - Sí, hagámoslo
+    - Sí, me interesa
+    - Sí, dale
+    - Sí, perfecto
+    - Sí, está bien
+    - Eso mismo
+    - Totalmente
+    - Completamente de acuerdo
+    - Sí señor
+    - Sí señora
+    - Sí, queda así
+    - Sí, confirmo
+    - Sí, me sirve
+    - Sí, continúa
+    - Sí, envíalo
+    - Sí, agendemos
+    - Sí, por fa
+    - Sí 👍
+    - Sí 😀
+    - Sí, exacto
+    - Sí, correcto
+    - Vale, sí
+    - Ok, sí
+    - Seguro que sí
+    - Sí, tal cual
+    - Sí, lo quiero
+    - Sí, listo
+    - Sí, entendido
+    - Sí, claro que sí
+    - Sí, por supuesto
+    - Sí, gracias!
+    - Sí, quedo atento
+    - Sí, adelante
+    - Sí, me parece bien
+    - Sí, ya
+    - Sí, ahora
+    - Sí, funciona
+    - Sí, hagámoslo así
+    - Sí, quedamos así
+    - Sí, sin problema
+    - Sí, confirmadísimo
+    - Sí, visto
+    - Sí, recibido
+    - Sí, dale nomás
+    - Sí, por mi está bien
+    - Sí, me cuadra
+    - Sí, procede eso
+    - Sí, todo ok
+    - Sí, me gusta
+    - Sí, acepto
+    - Sí, seguimos
+    - Sí, quedo a la espera
+    - Sí, por favor y gracias
+    - Sí, gracias de antemano
+    - Sí, claro, gracias
+    - Sí, sería ideal
+    - Sí, quedo atento/a
+    - Sí, todo correcto
+    - Sí, suena perfecto
+    - Sí, hacemos eso
+    - Sí, confirme por favor
+    - Sí, necesito eso
+    - Sí, quiero eso
+    - Sí, empezamos
+    - Sí, estoy listo
+    - Sí, lo apruebo
+    - Sí, procede nomás
+    - Sí, me apunto
+    - Sí, excelente
+    - Sí!
+    - Sii!
+    - Siii!
+    - Sí, claro!
+    - Claro que sí!
+    - De acuerdo!
+    - Correcto!
+    - Exacto!
+    - Tal cual!
+    - Ajá!
+    - Sí, por favor!
+    - Sí, gracias!
+    - Sí, me parece!
+    - Sí, confirmado!
+    - Sí, estoy de acuerdo!
+    - Sí, así es!
 - intent: negar
   examples: |
     - No
     - Para nada
     - Aún no
+    - No, gracias
+    - Todavía no
+    - Negativo
+    - No, por ahora no
+    - No, no me interesa
+    - No, más tarde
+    - No, disculpa
+    - No, eso no
+    - No, prefiero otra cosa
+    - No realmente
+    - No mucho
+    - No, no es necesario
+    - No, de momento no
+    - No gracias 🙏
+    - No, por el momento no
+    - No, paso
+    - No, no me cuadra
+    - No, lo siento
+    - No, no aplica
+    - No, no por ahora
+    - No, mejor no
+    - No, quizás luego
+    - Nop
+    - Nel
+    - No, no quiero
+    - No, no puedo
+    - No, no es posible
+    - No, está bien así
+    - No, no hace falta
+    - No, déjalo
+    - No por ahora
+    - No, gracias igualmente
+    - No, no estoy seguro
+    - No, no lo necesito
+    - No, descartemos
+    - No, no procede
+    - No, no tengo tiempo
+    - No, no alcanzo
+    - No, no me conviene
+    - No, pos no
+    - No, mejor después
+    - No, no me parece
+    - No, no entiendo
+    - No, no me gusta
+    - No, me retiro
+    - No, no lo veo
+    - No, no lo apruebo
+    - No, no aplica acá
+    - No, no lo tengo claro
+    - No, prefiero esperar
+    - No, ahora no
+    - No, en otra ocasión
+    - No, gracias por ahora
+    - No, más adelante
+    - No, porfa no
+    - No, creo que no
+    - No, aún estoy evaluando
+    - No, no me sirve
+    - No, lo pospongo
+    - No, no estoy de acuerdo
+    - No, cancelamos
+    - No, rechacemos
+    - No, mejor busco otra opción
+    - No, no procede aún
+    - No, ahora mismo no
+    - No!
+    - No, gracias!
+    - Para nada!
+    - Aún no!
+    - Todavía no!
+    - Negativo!
+    - No, por ahora no!
+    - No, no me interesa!
+    - No, más tarde!
+    - No, disculpa!
+    - No, eso no!
+    - No, prefiero otra cosa!
+    - No realmente!
+    - No mucho!
+    - No, no es necesario!
+    - No, de momento no!
+    - No gracias 🙏!
+    - No, por el momento no!
+    - No, paso!
+    - No, no me cuadra!
+    - No, lo siento!
+    - No, no aplica!
+    - No, no por ahora!
+    - No, mejor no!
+    - No, quizás luego!
+    - Nop!
+    - Nel!
+    - No, no quiero!
+    - No, no puedo!
+    - No, no es posible!
+    - No, está bien así!
+    - No, no hace falta!
+    - No, déjalo!
+    - No por ahora!
+    - No, gracias igualmente!
 - intent: solicitar_info
   examples: |
     - Quiero información
     - Me puedes explicar sus servicios
     - ¿Qué hacen ustedes?
     - ¿Qué ofrecen?
+    - Quiero información sobre sus servicios
+    - Quiero información sobre sus planes
+    - Quiero información sobre sus soluciones
+    - Quiero información sobre sus paquetes
+    - Quiero información sobre el servicio
+    - Quiero información sobre el servicio de social media
+    - Quiero información sobre diseño web
+    - Quiero información sobre Google Ads
+    - Quiero información sobre diseño gráfico
+    - Quiero información sobre publicidad exterior
+    - Quiero información sobre sus precios
+    - Quiero información sobre sus metodologías
+    - Quiero información sobre su proceso
+    - Quiero información sobre su propuesta de valor
+    - Quiero información sobre su soporte
+    - Quiero información sobre su garantía
+    - Quiero información sobre los tiempos de entrega
+    - Quiero información sobre su modo de trabajo
+    - Quiero información sobre su onboarding
+    - Quiero información sobre su mantenimiento
+    - ¿Me pueden explicar sus sus servicios?
+    - ¿Me pueden explicar sus sus planes?
+    - ¿Me pueden explicar sus sus soluciones?
+    - ¿Me pueden explicar sus sus paquetes?
+    - ¿Me pueden explicar sus el servicio?
+    - ¿Me pueden explicar sus el servicio de social media?
+    - ¿Me pueden explicar sus diseño web?
+    - ¿Me pueden explicar sus Google Ads?
+    - ¿Me pueden explicar sus diseño gráfico?
+    - ¿Me pueden explicar sus publicidad exterior?
+    - ¿Me pueden explicar sus sus precios?
+    - ¿Me pueden explicar sus sus metodologías?
+    - ¿Me pueden explicar sus su proceso?
+    - ¿Me pueden explicar sus su propuesta de valor?
+    - ¿Me pueden explicar sus su soporte?
+    - ¿Me pueden explicar sus su garantía?
+    - ¿Me pueden explicar sus los tiempos de entrega?
+    - ¿Me pueden explicar sus su modo de trabajo?
+    - ¿Me pueden explicar sus su onboarding?
+    - ¿Me pueden explicar sus su mantenimiento?
+    - ¿Qué incluyen en sus servicios?
+    - ¿Qué incluyen en sus planes?
+    - ¿Qué incluyen en sus soluciones?
+    - ¿Qué incluyen en sus paquetes?
+    - ¿Qué incluyen en el servicio?
+    - ¿Qué incluyen en el servicio de social media?
+    - ¿Qué incluyen en diseño web?
+    - ¿Qué incluyen en Google Ads?
+    - ¿Qué incluyen en diseño gráfico?
+    - ¿Qué incluyen en publicidad exterior?
+    - ¿Qué incluyen en sus precios?
+    - ¿Qué incluyen en sus metodologías?
+    - ¿Qué incluyen en su proceso?
+    - ¿Qué incluyen en su propuesta de valor?
+    - ¿Qué incluyen en su soporte?
+    - ¿Qué incluyen en su garantía?
+    - ¿Qué incluyen en los tiempos de entrega?
+    - ¿Qué incluyen en su modo de trabajo?
+    - ¿Qué incluyen en su onboarding?
+    - ¿Qué incluyen en su mantenimiento?
+    - ¿Podrían contarme más de sus servicios?
+    - ¿Podrían contarme más de sus planes?
+    - ¿Podrían contarme más de sus soluciones?
+    - ¿Podrían contarme más de sus paquetes?
+    - ¿Podrían contarme más de el servicio?
+    - ¿Podrían contarme más de el servicio de social media?
+    - ¿Podrían contarme más de diseño web?
+    - ¿Podrían contarme más de Google Ads?
+    - ¿Podrían contarme más de diseño gráfico?
+    - ¿Podrían contarme más de publicidad exterior?
+    - ¿Podrían contarme más de sus precios?
+    - ¿Podrían contarme más de sus metodologías?
+    - ¿Podrían contarme más de su proceso?
+    - ¿Podrían contarme más de su propuesta de valor?
+    - ¿Podrían contarme más de su soporte?
+    - ¿Podrían contarme más de su garantía?
+    - ¿Podrían contarme más de los tiempos de entrega?
+    - ¿Podrían contarme más de su modo de trabajo?
+    - ¿Podrían contarme más de su onboarding?
+    - ¿Podrían contarme más de su mantenimiento?
+    - Necesito detalles de sus servicios
+    - Necesito detalles de sus planes
+    - Necesito detalles de sus soluciones
+    - Necesito detalles de sus paquetes
+    - Necesito detalles de el servicio
+    - Necesito detalles de el servicio de social media
+    - Necesito detalles de diseño web
+    - Necesito detalles de Google Ads
+    - Necesito detalles de diseño gráfico
+    - Necesito detalles de publicidad exterior
+    - Necesito detalles de sus precios
+    - Necesito detalles de sus metodologías
+    - Necesito detalles de su proceso
+    - Necesito detalles de su propuesta de valor
+    - Necesito detalles de su soporte
+    - Necesito detalles de su garantía
+    - Necesito detalles de los tiempos de entrega
+    - Necesito detalles de su modo de trabajo
+    - Necesito detalles de su onboarding
+    - Necesito detalles de su mantenimiento
 - intent: servicio_social_media
   examples: |
     - Necesito ayuda con redes sociales
     - Me interesa social media
     - Quiero mejorar mi Instagram
     - Manejo de redes sociales
+    - Necesito ayuda con Instagram
+    - Necesito ayuda con Facebook
+    - Necesito ayuda con LinkedIn
+    - Necesito ayuda con TikTok
+    - Necesito ayuda con Twitter
+    - Necesito ayuda con YouTube
+    - Necesito ayuda con Pinterest
+    - Necesito ayuda con Instagram y Facebook
+    - Necesito ayuda con RRSS
+    - Necesito ayuda con social media
+    - Me interesa redes sociales
+    - Me interesa Instagram
+    - Me interesa Facebook
+    - Me interesa LinkedIn
+    - Me interesa TikTok
+    - Me interesa Twitter
+    - Me interesa YouTube
+    - Me interesa Pinterest
+    - Me interesa Instagram y Facebook
+    - Me interesa RRSS
+    - Quiero mejorar mi redes sociales
+    - Quiero mejorar mi Facebook
+    - Quiero mejorar mi LinkedIn
+    - Quiero mejorar mi TikTok
+    - Quiero mejorar mi Twitter
+    - Quiero mejorar mi YouTube
+    - Quiero mejorar mi Pinterest
+    - Quiero mejorar mi Instagram y Facebook
+    - Quiero mejorar mi RRSS
+    - Quiero mejorar mi social media
+    - Manejo de Instagram
+    - Manejo de Facebook
+    - Manejo de LinkedIn
+    - Manejo de TikTok
+    - Manejo de Twitter
+    - Manejo de YouTube
+    - Manejo de Pinterest
+    - Manejo de Instagram y Facebook
+    - Manejo de RRSS
+    - Manejo de social media
+    - Quiero crecer en redes sociales
+    - Quiero crecer en Instagram
+    - Quiero crecer en Facebook
+    - Quiero crecer en LinkedIn
+    - Quiero crecer en TikTok
+    - Quiero crecer en Twitter
+    - Quiero crecer en YouTube
+    - Quiero crecer en Pinterest
+    - Quiero crecer en Instagram y Facebook
+    - Quiero crecer en RRSS
+    - Quiero crecer en social media
+    - ¿Pueden llevar mis redes sociales?
+    - ¿Pueden llevar mis Instagram?
+    - ¿Pueden llevar mis Facebook?
+    - ¿Pueden llevar mis LinkedIn?
+    - ¿Pueden llevar mis TikTok?
+    - ¿Pueden llevar mis Twitter?
+    - ¿Pueden llevar mis YouTube?
+    - ¿Pueden llevar mis Pinterest?
+    - ¿Pueden llevar mis Instagram y Facebook?
+    - ¿Pueden llevar mis RRSS?
+    - ¿Pueden llevar mis social media?
+    - Necesito estrategia para redes sociales
+    - Necesito estrategia para Instagram
+    - Necesito estrategia para Facebook
+    - Necesito estrategia para LinkedIn
+    - Necesito estrategia para TikTok
+    - Necesito estrategia para Twitter
+    - Necesito estrategia para YouTube
+    - Necesito estrategia para Pinterest
+    - Necesito estrategia para Instagram y Facebook
+    - Necesito estrategia para RRSS
+    - Necesito estrategia para social media
+    - Quiero calendario de contenidos para redes sociales
+    - Quiero calendario de contenidos para Instagram
+    - Quiero calendario de contenidos para Facebook
+    - pueden manejarme las redes?
+    - me llevan insta y face?
+    - quiero rrss full 🔥
+    - me ayudan con tiktok?
+    - necesito posts semanales
+    - quiero 15 reels al mes
+    - cómo subo el engagement?
+    - hacen social listening?
+    - mejorar look & feel
+    - quiero crecer orgánico
+    - publicidad para mi tienda en insta
+    - responden DMs?
+    - programan contenido?
+    - analíticas mensuales?
+    - quiero pauta constante
+    - me hacen copies?
+    - pack de artes?
+    - suben historias?
+    - me crean highlights?
+    - pueden optimizar bio y links?
+    - Necesito ayuda con redes sociales!
+    - Necesito ayuda con Instagram!
+    - Necesito ayuda con Facebook!
+    - Necesito ayuda con LinkedIn!
 - intent: servicio_google_ads
   examples: |
     - Quiero hacer publicidad en Google
     - Me interesa Google Ads
     - Necesito campañas de búsqueda
+    - Quiero publicidad en Google
+    - Quiero Google Ads en Google
+    - Quiero campañas de búsqueda en Google
+    - Quiero campañas Performance Max en Google
+    - Quiero campañas de display en Google
+    - Quiero campañas de remarketing en Google
+    - Quiero campañas de YouTube en Google
+    - Quiero campañas de shopping en Google
+    - Quiero conversion tracking en Google
+    - Quiero auditoría de Google Ads en Google
+    - Quiero keyword research en Google
+    - Quiero optimización de Quality Score en Google
+    - Quiero estructura de cuentas en Google
+    - Quiero configuración de conversiones en Google
+    - Quiero tag de conversiones en Google
+    - Me interesa publicidad
+    - Me interesa campañas de búsqueda
+    - Me interesa campañas Performance Max
+    - Me interesa campañas de display
+    - Me interesa campañas de remarketing
+    - Me interesa campañas de YouTube
+    - Me interesa campañas de shopping
+    - Me interesa conversion tracking
+    - Me interesa auditoría de Google Ads
+    - Me interesa keyword research
+    - Me interesa optimización de Quality Score
+    - Me interesa estructura de cuentas
+    - Me interesa configuración de conversiones
+    - Me interesa tag de conversiones
+    - Necesito publicidad
+    - Necesito Google Ads
+    - Necesito campañas Performance Max
+    - Necesito campañas de display
+    - Necesito campañas de remarketing
+    - Necesito campañas de YouTube
+    - Necesito campañas de shopping
+    - Necesito conversion tracking
+    - Necesito auditoría de Google Ads
+    - Necesito keyword research
+    - Necesito optimización de Quality Score
+    - Necesito estructura de cuentas
+    - Necesito configuración de conversiones
+    - Necesito tag de conversiones
+    - ¿Hacen publicidad?
+    - ¿Hacen Google Ads?
+    - ¿Hacen campañas de búsqueda?
+    - ¿Hacen campañas Performance Max?
+    - ¿Hacen campañas de display?
+    - ¿Hacen campañas de remarketing?
+    - ¿Hacen campañas de YouTube?
+    - ¿Hacen campañas de shopping?
+    - ¿Hacen conversion tracking?
+    - ¿Hacen auditoría de Google Ads?
+    - ¿Hacen keyword research?
+    - ¿Hacen optimización de Quality Score?
+    - ¿Hacen estructura de cuentas?
+    - ¿Hacen configuración de conversiones?
+    - ¿Hacen tag de conversiones?
+    - ¿Pueden optimizar publicidad?
+    - ¿Pueden optimizar Google Ads?
+    - ¿Pueden optimizar campañas de búsqueda?
+    - ¿Pueden optimizar campañas Performance Max?
+    - ¿Pueden optimizar campañas de display?
+    - ¿Pueden optimizar campañas de remarketing?
+    - ¿Pueden optimizar campañas de YouTube?
+    - ¿Pueden optimizar campañas de shopping?
+    - ¿Pueden optimizar conversion tracking?
+    - ¿Pueden optimizar auditoría de Google Ads?
+    - ¿Pueden optimizar keyword research?
+    - ¿Pueden optimizar optimización de Quality Score?
+    - ¿Pueden optimizar estructura de cuentas?
+    - ¿Pueden optimizar configuración de conversiones?
+    - ¿Pueden optimizar tag de conversiones?
+    - ¿Manejan publicidad?
+    - ¿Manejan Google Ads?
+    - ¿Manejan campañas de búsqueda?
+    - ¿Manejan campañas Performance Max?
+    - ¿Manejan campañas de display?
+    - ¿Manejan campañas de remarketing?
+    - ¿Manejan campañas de YouTube?
+    - ¿Manejan campañas de shopping?
+    - ¿Manejan conversion tracking?
+    - ¿Manejan auditoría de Google Ads?
+    - ¿Manejan keyword research?
+    - ¿Manejan optimización de Quality Score?
+    - ¿Manejan estructura de cuentas?
+    - ¿Manejan configuración de conversiones?
+    - ¿Manejan tag de conversiones?
+    - Requiero publicidad
+    - Requiero Google Ads
+    - Requiero campañas de búsqueda
+    - Requiero campañas Performance Max
+    - Requiero campañas de display
+    - Requiero campañas de remarketing
+    - Requiero campañas de YouTube
+    - Requiero campañas de shopping
+    - Requiero conversion tracking
+    - Requiero auditoría de Google Ads
+    - Quiero Google Ads en Google!
+    - Quiero campañas de búsqueda en Google!
 - intent: servicio_diseno_web
   examples: |
     - Quiero una página web
     - Necesito diseñar un sitio
     - Me interesa un e-commerce
+    - Quiero diseñar un sitio
+    - Quiero un e-commerce
+    - Quiero una landing page
+    - Quiero un blog corporativo
+    - Quiero una web institucional
+    - Quiero migración de sitio
+    - Quiero rediseño web
+    - Quiero optimización de velocidad
+    - Quiero mejora de Core Web Vitals
+    - Quiero integración con pagos
+    - Quiero catálogo online
+    - Quiero sitio multi-idioma
+    - Quiero diseño UX/UI
+    - Quiero diseño accesible
+    - Quiero sitio con CMS
+    - Necesito una página web
+    - Necesito un e-commerce
+    - Necesito una landing page
+    - Necesito un blog corporativo
+    - Necesito una web institucional
+    - Necesito migración de sitio
+    - Necesito rediseño web
+    - Necesito optimización de velocidad
+    - Necesito mejora de Core Web Vitals
+    - Necesito integración con pagos
+    - Necesito catálogo online
+    - Necesito sitio multi-idioma
+    - Necesito diseño UX/UI
+    - Necesito diseño accesible
+    - Necesito sitio con CMS
+    - Me interesa una página web
+    - Me interesa diseñar un sitio
+    - Me interesa una landing page
+    - Me interesa un blog corporativo
+    - Me interesa una web institucional
+    - Me interesa migración de sitio
+    - Me interesa rediseño web
+    - Me interesa optimización de velocidad
+    - Me interesa mejora de Core Web Vitals
+    - Me interesa integración con pagos
+    - Me interesa catálogo online
+    - Me interesa sitio multi-idioma
+    - Me interesa diseño UX/UI
+    - Me interesa diseño accesible
+    - Me interesa sitio con CMS
+    - ¿Pueden hacer una página web?
+    - ¿Pueden hacer diseñar un sitio?
+    - ¿Pueden hacer un e-commerce?
+    - ¿Pueden hacer una landing page?
+    - ¿Pueden hacer un blog corporativo?
+    - ¿Pueden hacer una web institucional?
+    - ¿Pueden hacer migración de sitio?
+    - ¿Pueden hacer rediseño web?
+    - ¿Pueden hacer optimización de velocidad?
+    - ¿Pueden hacer mejora de Core Web Vitals?
+    - ¿Pueden hacer integración con pagos?
+    - ¿Pueden hacer catálogo online?
+    - ¿Pueden hacer sitio multi-idioma?
+    - ¿Pueden hacer diseño UX/UI?
+    - ¿Pueden hacer diseño accesible?
+    - ¿Pueden hacer sitio con CMS?
+    - ¿Cuánto vale una página web?
+    - ¿Cuánto vale diseñar un sitio?
+    - ¿Cuánto vale un e-commerce?
+    - ¿Cuánto vale una landing page?
+    - ¿Cuánto vale un blog corporativo?
+    - ¿Cuánto vale una web institucional?
+    - ¿Cuánto vale migración de sitio?
+    - ¿Cuánto vale rediseño web?
+    - ¿Cuánto vale optimización de velocidad?
+    - ¿Cuánto vale mejora de Core Web Vitals?
+    - ¿Cuánto vale integración con pagos?
+    - ¿Cuánto vale catálogo online?
+    - ¿Cuánto vale sitio multi-idioma?
+    - ¿Cuánto vale diseño UX/UI?
+    - ¿Cuánto vale diseño accesible?
+    - ¿Cuánto vale sitio con CMS?
+    - Busco una página web profesional
+    - Busco diseñar un sitio profesional
+    - Busco un e-commerce profesional
+    - Busco una landing page profesional
+    - Busco un blog corporativo profesional
+    - Busco una web institucional profesional
+    - Busco migración de sitio profesional
+    - Busco rediseño web profesional
+    - Busco optimización de velocidad profesional
+    - Busco mejora de Core Web Vitals profesional
+    - Busco integración con pagos profesional
+    - Busco catálogo online profesional
+    - Busco sitio multi-idioma profesional
+    - Busco diseño UX/UI profesional
+    - Busco diseño accesible profesional
+    - Busco sitio con CMS profesional
+    - Requiero una página web con buen SEO
+    - Requiero diseñar un sitio con buen SEO
+    - Requiero un e-commerce con buen SEO
+    - Requiero una landing page con buen SEO
+    - Quiero una página web!
+    - Quiero diseñar un sitio!
+    - Quiero un e-commerce!
 - intent: servicio_diseno_grafico
   examples: |
     - Necesito un logotipo
     - Requiero diseño gráfico
     - Quiero piezas para redes
+    - Necesito identidad visual
+    - Necesito manual de marca
+    - Necesito piezas para redes
+    - Necesito banners para web
+    - Necesito diseño de presentaciones
+    - Necesito brochure digital
+    - Necesito diseño para e-book
+    - Necesito plantillas para Instagram
+    - Necesito portadas para YouTube
+    - Necesito diseño de tarjetas
+    - Necesito papelería corporativa
+    - Necesito mockups de productos
+    - Necesito ilustraciones
+    - Necesito posters
+    - Necesito flyers
+    - Necesito diseño para ferias
+    - Requiero un logotipo
+    - Requiero identidad visual
+    - Requiero manual de marca
+    - Requiero piezas para redes
+    - Requiero banners para web
+    - Requiero diseño de presentaciones
+    - Requiero brochure digital
+    - Requiero diseño para e-book
+    - Requiero plantillas para Instagram
+    - Requiero portadas para YouTube
+    - Requiero diseño de tarjetas
+    - Requiero papelería corporativa
+    - Requiero mockups de productos
+    - Requiero ilustraciones
+    - Requiero posters
+    - Requiero flyers
+    - Requiero diseño para ferias
+    - Quiero un logotipo
+    - Quiero identidad visual
+    - Quiero manual de marca
+    - Quiero banners para web
+    - Quiero diseño de presentaciones
+    - Quiero brochure digital
+    - Quiero diseño para e-book
+    - Quiero plantillas para Instagram
+    - Quiero portadas para YouTube
+    - Quiero diseño de tarjetas
+    - Quiero papelería corporativa
+    - Quiero mockups de productos
+    - Quiero ilustraciones
+    - Quiero posters
+    - Quiero flyers
+    - Quiero diseño para ferias
+    - ¿Hacen un logotipo?
+    - ¿Hacen identidad visual?
+    - ¿Hacen manual de marca?
+    - ¿Hacen piezas para redes?
+    - ¿Hacen banners para web?
+    - ¿Hacen diseño de presentaciones?
+    - ¿Hacen brochure digital?
+    - ¿Hacen diseño para e-book?
+    - ¿Hacen plantillas para Instagram?
+    - ¿Hacen portadas para YouTube?
+    - ¿Hacen diseño de tarjetas?
+    - ¿Hacen papelería corporativa?
+    - ¿Hacen mockups de productos?
+    - ¿Hacen ilustraciones?
+    - ¿Hacen posters?
+    - ¿Hacen flyers?
+    - ¿Hacen diseño para ferias?
+    - ¿Pueden crear un logotipo?
+    - ¿Pueden crear identidad visual?
+    - ¿Pueden crear manual de marca?
+    - ¿Pueden crear piezas para redes?
+    - ¿Pueden crear banners para web?
+    - ¿Pueden crear diseño de presentaciones?
+    - ¿Pueden crear brochure digital?
+    - ¿Pueden crear diseño para e-book?
+    - ¿Pueden crear plantillas para Instagram?
+    - ¿Pueden crear portadas para YouTube?
+    - ¿Pueden crear diseño de tarjetas?
+    - ¿Pueden crear papelería corporativa?
+    - ¿Pueden crear mockups de productos?
+    - ¿Pueden crear ilustraciones?
+    - ¿Pueden crear posters?
+    - ¿Pueden crear flyers?
+    - ¿Pueden crear diseño para ferias?
+    - ¿Cuánto cuesta un logotipo?
+    - ¿Cuánto cuesta identidad visual?
+    - ¿Cuánto cuesta manual de marca?
+    - ¿Cuánto cuesta piezas para redes?
+    - ¿Cuánto cuesta banners para web?
+    - ¿Cuánto cuesta diseño de presentaciones?
+    - ¿Cuánto cuesta brochure digital?
+    - ¿Cuánto cuesta diseño para e-book?
+    - ¿Cuánto cuesta plantillas para Instagram?
+    - ¿Cuánto cuesta portadas para YouTube?
+    - ¿Cuánto cuesta diseño de tarjetas?
+    - ¿Cuánto cuesta papelería corporativa?
+    - ¿Cuánto cuesta mockups de productos?
+    - ¿Cuánto cuesta ilustraciones?
+    - ¿Cuánto cuesta posters?
+    - Necesito identidad visual!
+    - Necesito manual de marca!
 - intent: servicio_publicidad_exterior
   examples: |
     - Me interesa publicidad exterior
     - Quiero una valla publicitaria
     - Necesito anunciar en buses
+    - Me interesa una valla publicitaria
+    - Me interesa anunciar en buses
+    - Me interesa mupis
+    - Me interesa lonas
+    - Me interesa pantallas LED
+    - Me interesa parabuses
+    - Me interesa publicidad en metro
+    - Me interesa vallas en autopistas
+    - Me interesa publicidad en taxis
+    - Me interesa backlights
+    - Me interesa espectaculares
+    - Me interesa pendones
+    - Me interesa carteleras
+    - Quiero publicidad exterior
+    - Quiero anunciar en buses
+    - Quiero mupis
+    - Quiero lonas
+    - Quiero pantallas LED
+    - Quiero parabuses
+    - Quiero publicidad en metro
+    - Quiero vallas en autopistas
+    - Quiero publicidad en taxis
+    - Quiero backlights
+    - Quiero espectaculares
+    - Quiero pendones
+    - Quiero carteleras
+    - Necesito publicidad exterior
+    - Necesito una valla publicitaria
+    - Necesito mupis
+    - Necesito lonas
+    - Necesito pantallas LED
+    - Necesito parabuses
+    - Necesito publicidad en metro
+    - Necesito vallas en autopistas
+    - Necesito publicidad en taxis
+    - Necesito backlights
+    - Necesito espectaculares
+    - Necesito pendones
+    - Necesito carteleras
+    - ¿Hacen publicidad exterior?
+    - ¿Hacen una valla publicitaria?
+    - ¿Hacen anunciar en buses?
+    - ¿Hacen mupis?
+    - ¿Hacen lonas?
+    - ¿Hacen pantallas LED?
+    - ¿Hacen parabuses?
+    - ¿Hacen publicidad en metro?
+    - ¿Hacen vallas en autopistas?
+    - ¿Hacen publicidad en taxis?
+    - ¿Hacen backlights?
+    - ¿Hacen espectaculares?
+    - ¿Hacen pendones?
+    - ¿Hacen carteleras?
+    - ¿Pueden gestionar publicidad exterior?
+    - ¿Pueden gestionar una valla publicitaria?
+    - ¿Pueden gestionar anunciar en buses?
+    - ¿Pueden gestionar mupis?
+    - ¿Pueden gestionar lonas?
+    - ¿Pueden gestionar pantallas LED?
+    - ¿Pueden gestionar parabuses?
+    - ¿Pueden gestionar publicidad en metro?
+    - ¿Pueden gestionar vallas en autopistas?
+    - ¿Pueden gestionar publicidad en taxis?
+    - ¿Pueden gestionar backlights?
+    - ¿Pueden gestionar espectaculares?
+    - ¿Pueden gestionar pendones?
+    - ¿Pueden gestionar carteleras?
+    - ¿Cuánto cuesta publicidad exterior?
+    - ¿Cuánto cuesta una valla publicitaria?
+    - ¿Cuánto cuesta anunciar en buses?
+    - ¿Cuánto cuesta mupis?
+    - ¿Cuánto cuesta lonas?
+    - ¿Cuánto cuesta pantallas LED?
+    - ¿Cuánto cuesta parabuses?
+    - ¿Cuánto cuesta publicidad en metro?
+    - ¿Cuánto cuesta vallas en autopistas?
+    - ¿Cuánto cuesta publicidad en taxis?
+    - ¿Cuánto cuesta backlights?
+    - ¿Cuánto cuesta espectaculares?
+    - ¿Cuánto cuesta pendones?
+    - ¿Cuánto cuesta carteleras?
+    - Cotización de publicidad exterior
+    - Cotización de una valla publicitaria
+    - Cotización de anunciar en buses
+    - Cotización de mupis
+    - Cotización de lonas
+    - Cotización de pantallas LED
+    - Cotización de parabuses
+    - Cotización de publicidad en metro
+    - Cotización de vallas en autopistas
+    - Cotización de publicidad en taxis
+    - Cotización de backlights
+    - Cotización de espectaculares
+    - Cotización de pendones
+    - Cotización de carteleras
+    - Busco proveedor para publicidad exterior
+    - Busco proveedor para una valla publicitaria
+    - Me interesa publicidad exterior!
+    - Me interesa una valla publicitaria!
+    - Me interesa anunciar en buses!
 - intent: pedir_precios
   examples: |
     - ¿Cuánto cuesta?
     - Me puedes dar precios
     - Tarifas de social media
     - Precios de diseño web
+    - ¿Cuánto cuesta social media?
+    - ¿Cuánto cuesta diseño web?
+    - ¿Cuánto cuesta Google Ads?
+    - ¿Cuánto cuesta diseño gráfico?
+    - ¿Cuánto cuesta publicidad exterior?
+    - ¿Cuánto cuesta e-commerce?
+    - ¿Cuánto cuesta landing page?
+    - ¿Cuánto cuesta community management?
+    - ¿Cuánto cuesta campañas de búsqueda?
+    - ¿Cuánto cuesta branding?
+    - ¿Me pueden dar precios de social media?
+    - ¿Me pueden dar precios de diseño web?
+    - ¿Me pueden dar precios de Google Ads?
+    - ¿Me pueden dar precios de diseño gráfico?
+    - ¿Me pueden dar precios de publicidad exterior?
+    - ¿Me pueden dar precios de e-commerce?
+    - ¿Me pueden dar precios de landing page?
+    - ¿Me pueden dar precios de community management?
+    - ¿Me pueden dar precios de campañas de búsqueda?
+    - ¿Me pueden dar precios de branding?
+    - Tarifas de diseño web
+    - Tarifas de Google Ads
+    - Tarifas de diseño gráfico
+    - Tarifas de publicidad exterior
+    - Tarifas de e-commerce
+    - Tarifas de landing page
+    - Tarifas de community management
+    - Tarifas de campañas de búsqueda
+    - Tarifas de branding
+    - Precios de social media
+    - Precios de Google Ads
+    - Precios de diseño gráfico
+    - Precios de publicidad exterior
+    - Precios de e-commerce
+    - Precios de landing page
+    - Precios de community management
+    - Precios de campañas de búsqueda
+    - Precios de branding
+    - ¿Cuál es el costo de social media?
+    - ¿Cuál es el costo de diseño web?
+    - ¿Cuál es el costo de Google Ads?
+    - ¿Cuál es el costo de diseño gráfico?
+    - ¿Cuál es el costo de publicidad exterior?
+    - ¿Cuál es el costo de e-commerce?
+    - ¿Cuál es el costo de landing page?
+    - ¿Cuál es el costo de community management?
+    - ¿Cuál es el costo de campañas de búsqueda?
+    - ¿Cuál es el costo de branding?
+    - ¿Tienen planes y precios para social media?
+    - ¿Tienen planes y precios para diseño web?
+    - ¿Tienen planes y precios para Google Ads?
+    - ¿Tienen planes y precios para diseño gráfico?
+    - ¿Tienen planes y precios para publicidad exterior?
+    - ¿Tienen planes y precios para e-commerce?
+    - ¿Tienen planes y precios para landing page?
+    - ¿Tienen planes y precios para community management?
+    - ¿Tienen planes y precios para campañas de búsqueda?
+    - ¿Tienen planes y precios para branding?
+    - Quiero cotización de social media
+    - Quiero cotización de diseño web
+    - Quiero cotización de Google Ads
+    - Quiero cotización de diseño gráfico
+    - Quiero cotización de publicidad exterior
+    - Quiero cotización de e-commerce
+    - Quiero cotización de landing page
+    - Quiero cotización de community management
+    - Quiero cotización de campañas de búsqueda
+    - Quiero cotización de branding
+    - ¿Hay descuentos en social media?
+    - ¿Hay descuentos en diseño web?
+    - ¿Hay descuentos en Google Ads?
+    - ¿Hay descuentos en diseño gráfico?
+    - ¿Hay descuentos en publicidad exterior?
+    - ¿Hay descuentos en e-commerce?
+    - ¿Hay descuentos en landing page?
+    - ¿Hay descuentos en community management?
+    - ¿Hay descuentos en campañas de búsqueda?
+    - ¿Hay descuentos en branding?
+    - ¿Cuánto sale social media?
+    - ¿Cuánto sale diseño web?
+    - ¿Cuánto sale Google Ads?
+    - ¿Cuánto sale diseño gráfico?
+    - ¿Cuánto sale publicidad exterior?
+    - ¿Cuánto sale e-commerce?
+    - ¿Cuánto sale landing page?
+    - ¿Cuánto sale community management?
+    - ¿Cuánto sale campañas de búsqueda?
+    - ¿Cuánto sale branding?
+    - precio por hora
+    - precio mensual
+    - precio por proyecto
+    - me hacen precio?
+    - presupuesto estimado
+    - tabla de tarifas
+    - costos aproximados
+    - rango de precios
+    - promociones actuales
+    - ¿aceptan pagos por hitos?
+    - ¿Cuánto cuesta Google Ads?!
+    - ¿Cuánto cuesta diseño gráfico?!
 - intent: solicitar_reunion
   examples: |
     - Quiero agendar una reunión
     - Podemos coordinar una llamada
     - Deseo una cita
+    - Quiero coordinar una llamada
+    - Quiero una cita
+    - Quiero una demo
+    - Quiero una videollamada
+    - Quiero una reunión por Zoom
+    - Quiero una reunión por Google Meet
+    - Quiero una reunión breve
+    - Quiero una reunión exploratoria
+    - Quiero una reunión comercial
+    - Podemos agendar una reunión
+    - Podemos una cita
+    - Podemos una demo
+    - Podemos una videollamada
+    - Podemos una reunión por Zoom
+    - Podemos una reunión por Google Meet
+    - Podemos una reunión breve
+    - Podemos una reunión exploratoria
+    - Podemos una reunión comercial
+    - Deseo agendar una reunión
+    - Deseo coordinar una llamada
+    - Deseo una demo
+    - Deseo una videollamada
+    - Deseo una reunión por Zoom
+    - Deseo una reunión por Google Meet
+    - Deseo una reunión breve
+    - Deseo una reunión exploratoria
+    - Deseo una reunión comercial
+    - ¿Podemos agendar una reunión?
+    - ¿Podemos coordinar una llamada?
+    - ¿Podemos una cita?
+    - ¿Podemos una demo?
+    - ¿Podemos una videollamada?
+    - ¿Podemos una reunión por Zoom?
+    - ¿Podemos una reunión por Google Meet?
+    - ¿Podemos una reunión breve?
+    - ¿Podemos una reunión exploratoria?
+    - ¿Podemos una reunión comercial?
+    - ¿Me ayudan a agendar una reunión?
+    - ¿Me ayudan a coordinar una llamada?
+    - ¿Me ayudan a una cita?
+    - ¿Me ayudan a una demo?
+    - ¿Me ayudan a una videollamada?
+    - ¿Me ayudan a una reunión por Zoom?
+    - ¿Me ayudan a una reunión por Google Meet?
+    - ¿Me ayudan a una reunión breve?
+    - ¿Me ayudan a una reunión exploratoria?
+    - ¿Me ayudan a una reunión comercial?
+    - ¿Tienen disponibilidad para agendar una reunión?
+    - ¿Tienen disponibilidad para coordinar una llamada?
+    - ¿Tienen disponibilidad para una cita?
+    - ¿Tienen disponibilidad para una demo?
+    - ¿Tienen disponibilidad para una videollamada?
+    - ¿Tienen disponibilidad para una reunión por Zoom?
+    - ¿Tienen disponibilidad para una reunión por Google Meet?
+    - ¿Tienen disponibilidad para una reunión breve?
+    - ¿Tienen disponibilidad para una reunión exploratoria?
+    - ¿Tienen disponibilidad para una reunión comercial?
+    - ¿Se puede agendar una reunión esta semana?
+    - ¿Se puede coordinar una llamada esta semana?
+    - ¿Se puede una cita esta semana?
+    - ¿Se puede una demo esta semana?
+    - ¿Se puede una videollamada esta semana?
+    - ¿Se puede una reunión por Zoom esta semana?
+    - ¿Se puede una reunión por Google Meet esta semana?
+    - ¿Se puede una reunión breve esta semana?
+    - ¿Se puede una reunión exploratoria esta semana?
+    - ¿Se puede una reunión comercial esta semana?
+    - ¿Agendamos para agendar una reunión?
+    - ¿Agendamos para coordinar una llamada?
+    - ¿Agendamos para una cita?
+    - ¿Agendamos para una demo?
+    - ¿Agendamos para una videollamada?
+    - ¿Agendamos para una reunión por Zoom?
+    - ¿Agendamos para una reunión por Google Meet?
+    - ¿Agendamos para una reunión breve?
+    - ¿Agendamos para una reunión exploratoria?
+    - ¿Agendamos para una reunión comercial?
+    - ¿Coordinamos para agendar una reunión?
+    - ¿Coordinamos para coordinar una llamada?
+    - ¿Coordinamos para una cita?
+    - ¿Coordinamos para una demo?
+    - ¿Coordinamos para una videollamada?
+    - ¿Coordinamos para una reunión por Zoom?
+    - ¿Coordinamos para una reunión por Google Meet?
+    - ¿Coordinamos para una reunión breve?
+    - ¿Coordinamos para una reunión exploratoria?
+    - ¿Coordinamos para una reunión comercial?
+    - ¿Puedo agendar una reunión con un asesor?
+    - ¿Puedo coordinar una llamada con un asesor?
+    - calendly?
+    - les paso mi disponibilidad
+    - me envían un link de agenda
+    - tienen slots mañana?
+    - prefiero tarde/noche
+    - reunión de 30 min
+    - demo esta semana?
+    - meeting esta tarde?
+    - Quiero agendar una reunión!
+    - Quiero coordinar una llamada!
+    - Quiero una cita!
 - intent: proporcionar_fecha
   examples: |
     - El lunes a las 3
@@ -78,27 +1278,625 @@ nlu:
     - Este viernes
     - Mañana
     - El 20 de octubre
+    - El miércoles en la tarde
+    - El jueves a primera hora
+    - El sábado al mediodía
+    - El domingo por la mañana
+    - El próximo lunes
+    - El 5 de noviembre
+    - La otra semana
+    - Pasado mañana
+    - Este lunes a las 10
+    - Mañana a las 9
+    - Hoy en la tarde
+    - Hoy a las 16:00
+    - El 15/10
+    - El 01-12
+    - El 31 de enero
+    - El martes 3pm
+    - Viernes a las 11
+    - El jueves 14:30
+    - El miércoles 08:00
+    - El 10/10 a las 10
+    - El 22 de diciembre por la tarde
+    - El próximo viernes
+    - La siguiente semana por la mañana
+    - El fin de semana
+    - Entre semana por la tarde
+    - El martes a media mañana
+    - El jueves a media tarde
+    - El lunes temprano
+    - El viernes al final del día
+    - Mañana tipo 10
+    - El lunes luego del almuerzo
+    - El martes después de las 5
+    - El miércoles antes de las 9
+    - El jueves después del mediodía
+    - El viernes después de las 3
+    - El 7 de abril a las 12
+    - El 12 de mayo a las 15
+    - El 20 de junio por la mañana
+    - El 1 de julio por la tarde
+    - El 9 de agosto
+    - El 18 de septiembre a las 10
+    - El 2 de octubre en la mañana
+    - El 3 de noviembre a las 17
+    - El 24 de diciembre temprano
+    - El 31 de diciembre por la tarde
+    - Mañana a primera hora
+    - Mañana casi al final del día
+    - Este jueves a las 13
+    - Este miércoles a las 19
+    - El sábado a las 10
+    - El domingo a las 9
+    - El miércoles bien temprano
+    - El lunes a las 14:00
+    - El martes 17:30
+    - El jueves 09:15
+    - El viernes 18:45
+    - El 21 de marzo
+    - El 30 de abril
+    - El 8 de mayo
+    - El 6 de junio
+    - El 7 de julio
+    - El 8 de agosto
+    - El 9 de septiembre
+    - El 10 de octubre
+    - El 11 de noviembre
+    - El 12 de diciembre
+    - El 01/01 a las 10
+    - El 02/02 a las 11
+    - El 03/03 a las 12
+    - El 04/04 a las 13
+    - El 05/05 a las 14
+    - El 06/06 a las 15
+    - El 07/07 a las 16
+    - El 08/08 a las 17
+    - El 09/09 a las 18
+    - El 10/10 a las 19
+    - El 11/11 a las 20
+    - El 12/12 a las 21
+    - El lunes 10h
+    - El martes 11h
+    - El miércoles 12h
+    - El jueves 13h
+    - El viernes 14h
+    - El sábado 15h
+    - El domingo 16h
+    - El lunes 17h
+    - El martes 18h
+    - El miércoles 19h
+    - El jueves 20h
+    - El viernes 21h
+    - Mañana temprano, tipo 8
+    - El viernes después de almuerzo
+    - Este martes, cuando puedan
+    - El 20-10-2025 a las 10
+    - El 01-01-2026 09:00
+    - El lunes a las 3!
+    - El martes por la mañana!
+    - Este viernes!
+    - Mañana!
+    - El 20 de octubre!
 - intent: out_of_scope
   examples: |
     - Quiero contratar limpieza
     - Venden muebles
     - Ofrecen servicio de transporte
+    - Hacen reparación de electrodomésticos
+    - ¿Pueden cuidar mascotas?
+    - ¿Venden comida?
+    - Necesito un plomero
+    - Busco profesor de matemáticas
+    - Arreglan celulares
+    - Hacen mudanzas
+    - Venden ropa
+    - Clases de guitarra
+    - Venden entradas para conciertos
+    - Arreglan autos
+    - Servicio técnico de PC
+    - Venden seguros de autos
+    - Instalan paneles solares
+    - Alquiler de autos
+    - Tienen servicio médico
+    - Venden medicamentos
+    - Hacen trámites legales
+    - Servicio de jardinería
+    - Venden bicicletas
+    - Organizan eventos
+    - Venden paquetes turísticos
+    - Hacen catering
+    - Reparan calderas
+    - Hacen tatuajes
+    - Clases de yoga
+    - Psicoterapia online
+    - Venden electrodomésticos
+    - Arriendo de departamentos
+    - Servicios contables
+    - Venden criptomonedas
+    - Soporte para videojuegos
+    - Venta de entradas de fútbol
+    - Detectives privados
+    - Clases de natación
+    - Curso de manejo
+    - Tours de montaña
+    - Guardería infantil
+    - Traducciones juradas
+    - Arriendo de oficinas
+    - Arreglan relojes
+    - Reparación de techos
+    - Construcción de casas
+    - Servicios de mudanza internacional
+    - Cursos de cocina
+    - Venden licencias de software
+    - Peritajes
+    - Clases de baile
+    - Servicios de fotografía de bodas
+    - Veterinaria a domicilio
+    - Servicios funerarios
+    - Inmobiliaria
+    - Cursos de programación
+    - Venden hardware
+    - Clínica dental
+    - Arriendo de bodegas
+    - Compra y venta de autos
+    - Grúas
+    - Lavado de autos
+    - Reparación de bicicletas
+    - Reparación de consolas
+    - Clases de inglés
+    - Clases de portugués
+    - Venden pinturas
+    - Instalan cortinas
+    - Servicio de cerrajería
+    - Abogados de familia
+    - Controles de plagas
+    - Instalan alarmas
+    - Arreglo de calzado
+    - Venden muebles usados
+    - Venden plantas
+    - Tours en barco
+    - Arriendo de yates
+    - Spa a domicilio
+    - Terapeuta ocupacional
+    - Kinesiólogo a domicilio
+    - Masajes
+    - Nutricionista online
+    - Servicio de sushi a domicilio
+    - Comida vegana delivery
+    - Reparación de drones
+    - Pilotos de drone
+    - Clases de pilotaje
+    - Pasajes de avión
+    - Hotelería
+    - Seguro de viajes
+    - Clases de canto
+    - Maquillaje profesional
+    - Barbería a domicilio
+    - Tatuajes temporales
+    - Confección de trajes
+    - Alquiler de vestidos
+    - Reparación de joyas
+    - Restauración de muebles
+    - Astrología
+    - Lectura de tarot
+    - Quiero contratar limpieza!
+    - Venden muebles!
+    - Ofrecen servicio de transporte!
 - intent: agradecimiento
   examples: |
     - Gracias
     - Muchas gracias
     - Te agradezco
+    - Mil gracias
+    - Se pasaron, gracias
+    - Gracias por la info
+    - Gracias por responder
+    - Gracias por la atención
+    - Gracias, muy amable
+    - Gracias por su tiempo
+    - Súper, gracias
+    - Excelente, gracias
+    - Quedó clarísimo, gracias
+    - Bacán, gracias
+    - Todo ok, gracias
+    - Gracias por el apoyo
+    - Muy útiles, gracias
+    - Gracias, quedó claro
+    - Gracias por la rapidez
+    - Gracias por ayudar
+    - Gracias! 🙏
+    - Gracias totales
+    - Gracias por el seguimiento
+    - Gracias por la demo
+    - Gracias, buen servicio
+    - Gracias equipo
+    - Gracias por orientarme
+    - Gracias por el detalle
+    - Gracias por cotizar
+    - Agradecido
+    - Agradecido/a
+    - Muchísimas gracias
+    - Genial, gracias
+    - Gracias por la paciencia
+    - Gracias por la explicación
+    - Gracias por la gestión
+    - Gracias por la propuesta
+    - Gracias, me sirve
+    - Gracias, me ayudó mucho
+    - Gracias, quedó perfecto
+    - Notable, gracias
+    - Bravísimo, gracias
+    - Gracias, quedo atento
+    - Gracias por el material
+    - Gracias por la presentación
+    - Gracias por la oferta
+    - Gracias por toda la info
+    - Buenísimo, gracias
+    - Gracias, seguimos en contacto
+    - Gracias, hasta luego
+    - Gracias por estar atentos
+    - Gracias por la disponibilidad
+    - Gracias, muy completo
+    - Gracias, muy claro
+    - Gracias a ustedes
+    - Mil gracias, de verdad
+    - Agradezco mucho su ayuda
+    - Gracias, excelente
+    - Impecable, gracias
+    - Gracias por resolver
+    - Gracias por el soporte
+    - Gracias por la asesoría
+    - Gracias por su amabilidad
+    - Gracias por su gestión
+    - Gracias por la prontitud
+    - Gracias por la cordialidad
+    - Gracias por todo
+    - Gracias, gran equipo
+    - Gracias, quedó impecable
+    - Gracias, muy útil
+    - Gracias, quedó resuelto
+    - Gracias, quedó listo
+    - Gracias, avance notable
+    - Gracias, quedó aprobado
+    - Gracias, seguimos adelante
+    - Gracias, un gusto
+    - Gracias!
+    - Muchas gracias!
+    - Te agradezco!
+    - Mil gracias!
+    - Se pasaron, gracias!
+    - Gracias por la info!
+    - Gracias por responder!
+    - Gracias por la atención!
+    - Gracias, muy amable!
+    - Gracias por su tiempo!
+    - Súper, gracias!
+    - Excelente, gracias!
+    - Quedó clarísimo, gracias!
+    - Bacán, gracias!
+    - Todo ok, gracias!
+    - Gracias por el apoyo!
+    - Muy útiles, gracias!
+    - Gracias, quedó claro!
+    - Gracias por la rapidez!
+    - Gracias por ayudar!
+    - Gracias! 🙏!
+    - Gracias totales!
+    - Gracias por el seguimiento!
+    - Gracias por la demo!
+    - Gracias, buen servicio!
+    - Gracias equipo!
+    - Gracias por orientarme!
 - intent: preguntar_ubicacion
   examples: |
     - ¿Dónde están ubicados?
     - ¿En qué ciudad se encuentran?
-  
+    - ¿Dónde están encuentran?
+    - ¿Dónde están ubican?
+    - ¿Dónde están localizan?
+    - ¿Atienden en Quito?
+    - ¿Atienden en Guayaquil?
+    - ¿Atienden en Cuenca?
+    - ¿Atienden en Lima?
+    - ¿Atienden en Bogotá?
+    - ¿Atienden en CDMX?
+    - ¿Atienden en Madrid?
+    - ¿Atienden en Barcelona?
+    - ¿Atienden en Buenos Aires?
+    - ¿Atienden en Santiago?
+    - ¿Atienden en Montevideo?
+    - ¿Atienden en Asunción?
+    - ¿Atienden en Querétaro?
+    - ¿Atienden en Medellín?
+    - ¿Atienden en Qatar?
+    - ¿Tienen oficina en Quito?
+    - ¿Tienen oficina en Guayaquil?
+    - ¿Tienen oficina en Cuenca?
+    - ¿Tienen oficina en Lima?
+    - ¿Tienen oficina en Bogotá?
+    - ¿Tienen oficina en CDMX?
+    - ¿Tienen oficina en Madrid?
+    - ¿Tienen oficina en Barcelona?
+    - ¿Tienen oficina en Buenos Aires?
+    - ¿Tienen oficina en Santiago?
+    - ¿Tienen oficina en Montevideo?
+    - ¿Tienen oficina en Asunción?
+    - ¿Tienen oficina en Querétaro?
+    - ¿Tienen oficina en Medellín?
+    - ¿Tienen oficina en Qatar?
+    - ¿Trabajan remoto?
+    - ¿Operan internacionalmente?
+    - ¿Tienen atención online?
+    - ¿Dónde queda su sede principal?
+    - ¿En qué zona están?
+    - ¿Cuál es su dirección?
+    - ¿Atienden en todo el país?
+    - ¿Cuál es su dirección en Madrid?
+    - ¿Cuál es su dirección en Madrid?!
+    - ¿Dónde están ubicados?!
+    - ¿En qué ciudad se encuentran?!
+    - ¿Dónde están ubicados?!
+    - ¿Dónde están encuentran?!
+    - ¿Dónde están ubican?!
+    - ¿Dónde están localizan?!
+    - ¿Atienden en Quito?!
+    - ¿Atienden en Guayaquil?!
+    - ¿Atienden en Cuenca?!
+    - ¿Atienden en Lima?!
+    - ¿Atienden en Bogotá?!
+    - ¿Atienden en CDMX?!
+    - ¿Atienden en Madrid?!
+    - ¿Atienden en Barcelona?!
+    - ¿Atienden en Buenos Aires?!
+    - ¿Atienden en Santiago?!
+    - ¿Atienden en Montevideo?!
+    - ¿Atienden en Asunción?!
+    - ¿Atienden en Querétaro?!
+    - ¿Atienden en Medellín?!
+    - ¿Atienden en Qatar?!
+    - ¿Tienen oficina en Quito?!
+    - ¿Tienen oficina en Guayaquil?!
+    - ¿Tienen oficina en Cuenca?!
+    - ¿Tienen oficina en Lima?!
+    - ¿Tienen oficina en Bogotá?!
+    - ¿Tienen oficina en CDMX?!
+    - ¿Tienen oficina en Madrid?!
+    - ¿Tienen oficina en Barcelona?!
+    - ¿Tienen oficina en Buenos Aires?!
+    - ¿Tienen oficina en Santiago?!
+    - ¿Tienen oficina en Montevideo?!
+    - ¿Tienen oficina en Asunción?!
+    - ¿Tienen oficina en Querétaro?!
+    - ¿Tienen oficina en Medellín?!
+    - ¿Tienen oficina en Qatar?!
+    - ¿Trabajan remoto?!
+    - ¿Operan internacionalmente?!
+    - ¿Tienen atención online?!
+    - ¿Dónde queda su sede principal?!
+    - ¿En qué zona están?!
+    - ¿Cuál es su dirección?!
+    - ¿Atienden en todo el país?!
+    - ¿Cuál es su dirección en Madrid?!
+    - ¿Dónde están ubicados?!
+    - ¿En qué ciudad se encuentran?!
+    - ¿Dónde están ubicados?!
+    - ¿Dónde están encuentran?!
+    - ¿Dónde están ubican?!
+    - ¿Dónde están localizan?!
+    - ¿Atienden en Quito?!
+    - ¿Atienden en Guayaquil?!
+    - ¿Atienden en Cuenca?!
+    - ¿Atienden en Lima?!
+    - ¿Atienden en Bogotá?!
+    - ¿Atienden en CDMX?!
+    - ¿Atienden en Madrid?!
+    - ¿Atienden en Barcelona?!
 - intent: preguntar_nombre_agencia
   examples: |
     - ¿Cómo se llama la agencia?
     - Nombre de la empresa
-
+    - ¿Cuál es el nombre comercial?
+    - ¿Cómo se llaman ustedes?
+    - ¿Cuál es su marca?
+    - ¿Nombre de la agencia porfa?
+    - ¿Cómo figura la razón social?
+    - ¿Cuál es su nombre legal?
+    - ¿Cómo se llama su empresa?
+    - ¿Cuál es el nombre de la agencia digital?
+    - ¿Cuál es el nombre de su estudio?
+    - ¿Cómo se llama su grupo?
+    - ¿Cómo aparece en factura su nombre?
+    - ¿Nombre oficial de la agencia?
+    - ¿Cuál es su nombre de fantasía?
+    - ¿Cuál es su nombre registrado?
+    - ¿Cómo los encuentro en redes?
+    - ¿Con qué nombre operan?
+    - ¿Cómo se llama su agencia creativa?
+    - ¿Cuál es la marca con la que trabajan?
+    - ¿Cómo se llama la agencia?!
+    - Nombre de la empresa!
+    - ¿Cuál es el nombre comercial?!
+    - ¿Cómo se llaman ustedes?!
+    - ¿Cuál es su marca?!
+    - ¿Nombre de la agencia porfa?!
+    - ¿Cómo figura la razón social?!
+    - ¿Cuál es su nombre legal?!
+    - ¿Cómo se llama su empresa?!
+    - ¿Cuál es el nombre de la agencia digital?!
+    - ¿Cuál es el nombre de su estudio?!
+    - ¿Cómo se llama su grupo?!
+    - ¿Cómo aparece en factura su nombre?!
+    - ¿Nombre oficial de la agencia?!
+    - ¿Cuál es su nombre de fantasía?!
+    - ¿Cuál es su nombre registrado?!
+    - ¿Cómo los encuentro en redes?!
+    - ¿Con qué nombre operan?!
+    - ¿Cómo se llama su agencia creativa?!
+    - ¿Cuál es la marca con la que trabajan?!
+    - ¿Cómo se llama la agencia?!
+    - Nombre de la empresa!
+    - ¿Cuál es el nombre comercial?!
+    - ¿Cómo se llaman ustedes?!
+    - ¿Cuál es su marca?!
+    - ¿Nombre de la agencia porfa?!
+    - ¿Cómo figura la razón social?!
+    - ¿Cuál es su nombre legal?!
+    - ¿Cómo se llama su empresa?!
+    - ¿Cuál es el nombre de la agencia digital?!
+    - ¿Cuál es el nombre de su estudio?!
+    - ¿Cómo se llama su grupo?!
+    - ¿Cómo aparece en factura su nombre?!
+    - ¿Nombre oficial de la agencia?!
+    - ¿Cuál es su nombre de fantasía?!
+    - ¿Cuál es su nombre registrado?!
+    - ¿Cómo los encuentro en redes?!
+    - ¿Con qué nombre operan?!
+    - ¿Cómo se llama su agencia creativa?!
+    - ¿Cuál es la marca con la que trabajan?!
+    - ¿Cómo se llama la agencia?!
+    - Nombre de la empresa!
+    - ¿Cuál es el nombre comercial?!
+    - ¿Cómo se llaman ustedes?!
+    - ¿Cuál es su marca?!
+    - ¿Nombre de la agencia porfa?!
+    - ¿Cómo figura la razón social?!
+    - ¿Cuál es su nombre legal?!
+    - ¿Cómo se llama su empresa?!
+    - ¿Cuál es el nombre de la agencia digital?!
+    - ¿Cuál es el nombre de su estudio?!
+    - ¿Cómo se llama su grupo?!
+    - ¿Cómo aparece en factura su nombre?!
+    - ¿Nombre oficial de la agencia?!
+    - ¿Cuál es su nombre de fantasía?!
+    - ¿Cuál es su nombre registrado?!
+    - ¿Cómo los encuentro en redes?!
+    - ¿Con qué nombre operan?!
+    - ¿Cómo se llama su agencia creativa?!
+    - ¿Cuál es la marca con la que trabajan?!
+    - ¿Cómo se llama la agencia?!
+    - Nombre de la empresa!
+    - ¿Cuál es el nombre comercial?!
+    - ¿Cómo se llaman ustedes?!
+    - ¿Cuál es su marca?!
+    - ¿Nombre de la agencia porfa?!
+    - ¿Cómo figura la razón social?!
+    - ¿Cuál es su nombre legal?!
+    - ¿Cómo se llama su empresa?!
+    - ¿Cuál es el nombre de la agencia digital?!
+    - ¿Cuál es el nombre de su estudio?!
+    - ¿Cómo se llama su grupo?!
+    - ¿Cómo aparece en factura su nombre?!
+    - ¿Nombre oficial de la agencia?!
+    - ¿Cuál es su nombre de fantasía?!
+    - ¿Cuál es su nombre registrado?!
+    - ¿Cómo los encuentro en redes?!
+    - ¿Con qué nombre operan?!
+    - ¿Cómo se llama su agencia creativa?!
+    - ¿Cuál es la marca con la que trabajan?!
+    - ¿Cómo se llama la agencia?!
+    - Nombre de la empresa!
 - intent: preguntar_telefono
   examples: |
     - ¿Cuál es su teléfono?
     - Número de contacto
+    - ¿Tienen WhatsApp?
+    - ¿Me pasan su WhatsApp?
+    - ¿Cuál es su número fijo?
+    - ¿Tienen línea comercial?
+    - ¿Un número para llamadas?
+    - ¿Me dan un teléfono para coordinar?
+    - ¿Algún celular de contacto?
+    - ¿Cuál es su teléfono de ventas?
+    - ¿Un número para soporte?
+    - ¿Atienden por WhatsApp Business?
+    - ¿Cuál es su extensión?
+    - ¿Me envían su contacto telefónico?
+    - ¿Tienen call center?
+    - ¿Puedo agendar por teléfono?
+    - ¿Tienen línea 24/7?
+    - ¿Algún número directo?
+    - ¿Me dan su número, por favor?
+    - ¿Cuál es el contacto por llamadas?
+    - ¿Cuál es su teléfono?!
+    - Número de contacto!
+    - ¿Tienen WhatsApp?!
+    - ¿Me pasan su WhatsApp?!
+    - ¿Cuál es su número fijo?!
+    - ¿Tienen línea comercial?!
+    - ¿Un número para llamadas?!
+    - ¿Me dan un teléfono para coordinar?!
+    - ¿Algún celular de contacto?!
+    - ¿Cuál es su teléfono de ventas?!
+    - ¿Un número para soporte?!
+    - ¿Atienden por WhatsApp Business?!
+    - ¿Cuál es su extensión?!
+    - ¿Me envían su contacto telefónico?!
+    - ¿Tienen call center?!
+    - ¿Puedo agendar por teléfono?!
+    - ¿Tienen línea 24/7?!
+    - ¿Algún número directo?!
+    - ¿Me dan su número, por favor?!
+    - ¿Cuál es el contacto por llamadas?!
+    - ¿Cuál es su teléfono?!
+    - Número de contacto!
+    - ¿Tienen WhatsApp?!
+    - ¿Me pasan su WhatsApp?!
+    - ¿Cuál es su número fijo?!
+    - ¿Tienen línea comercial?!
+    - ¿Un número para llamadas?!
+    - ¿Me dan un teléfono para coordinar?!
+    - ¿Algún celular de contacto?!
+    - ¿Cuál es su teléfono de ventas?!
+    - ¿Un número para soporte?!
+    - ¿Atienden por WhatsApp Business?!
+    - ¿Cuál es su extensión?!
+    - ¿Me envían su contacto telefónico?!
+    - ¿Tienen call center?!
+    - ¿Puedo agendar por teléfono?!
+    - ¿Tienen línea 24/7?!
+    - ¿Algún número directo?!
+    - ¿Me dan su número, por favor?!
+    - ¿Cuál es el contacto por llamadas?!
+    - ¿Cuál es su teléfono?!
+    - Número de contacto!
+    - ¿Tienen WhatsApp?!
+    - ¿Me pasan su WhatsApp?!
+    - ¿Cuál es su número fijo?!
+    - ¿Tienen línea comercial?!
+    - ¿Un número para llamadas?!
+    - ¿Me dan un teléfono para coordinar?!
+    - ¿Algún celular de contacto?!
+    - ¿Cuál es su teléfono de ventas?!
+    - ¿Un número para soporte?!
+    - ¿Atienden por WhatsApp Business?!
+    - ¿Cuál es su extensión?!
+    - ¿Me envían su contacto telefónico?!
+    - ¿Tienen call center?!
+    - ¿Puedo agendar por teléfono?!
+    - ¿Tienen línea 24/7?!
+    - ¿Algún número directo?!
+    - ¿Me dan su número, por favor?!
+    - ¿Cuál es el contacto por llamadas?!
+    - ¿Cuál es su teléfono?!
+    - Número de contacto!
+    - ¿Tienen WhatsApp?!
+    - ¿Me pasan su WhatsApp?!
+    - ¿Cuál es su número fijo?!
+    - ¿Tienen línea comercial?!
+    - ¿Un número para llamadas?!
+    - ¿Me dan un teléfono para coordinar?!
+    - ¿Algún celular de contacto?!
+    - ¿Cuál es su teléfono de ventas?!
+    - ¿Un número para soporte?!
+    - ¿Atienden por WhatsApp Business?!
+    - ¿Cuál es su extensión?!
+    - ¿Me envían su contacto telefónico?!
+    - ¿Tienen call center?!
+    - ¿Puedo agendar por teléfono?!
+    - ¿Tienen línea 24/7?!
+    - ¿Algún número directo?!
+    - ¿Me dan su número, por favor?!
+    - ¿Cuál es el contacto por llamadas?!
+    - ¿Cuál es su teléfono?!
+    - Número de contacto!
