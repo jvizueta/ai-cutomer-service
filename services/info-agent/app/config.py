@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     ollama_base_url: str = Field(default="http://ollama:11434", alias="OLLAMA_BASE_URL")
     ollama_model: str = Field(default="llama3.1", alias="OLLAMA_MODEL")
     ollama_temperature: float = Field(default=0.2, alias="OLLAMA_TEMPERATURE")
+    system_prompt: str = Field(default="", alias="SYSTEM_PROMPT")
     log_level: str = Field(default="INFO", alias="LOG_LEVEL")
     host: str = "0.0.0.0"
     port: int = 8000

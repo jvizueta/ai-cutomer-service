@@ -1,11 +1,12 @@
+import os
 from dotenv import load_dotenv
 load_dotenv()
 
+import logging
 from fastapi import FastAPI
 from .models import AskReq, AskResponse
 from .services.ai_service import AIService
 from .config import settings
-import logging
 
 logger = logging.getLogger(__name__)
 

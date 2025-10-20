@@ -13,9 +13,6 @@ except ImportError:
     ConversationBufferMemory = None
     logger.warning("langchain or langchain-redis not installed; Redis memory functionality will be disabled")
 
-
-
-
 class AIService:
     """Service for handling AI/LLM interactions with Ollama and Redis-based memory"""
 
@@ -25,6 +22,7 @@ class AIService:
         self.temperature = settings.ollama_temperature
         self.redis_url = settings.redis_url
         self.session_id = session_id
+        self.system_prompt = settings.system_prompt
         self._memory = None
 
         if not self.base_url:
@@ -72,7 +70,7 @@ class AIService:
             logger.debug(f"Using prompt: {prompt}")
 
             # Build conversation history for context
-            messages = []
+            messages = [{"role": "system", "content": self.system_prompt}]
             if self.memory is not None and hasattr(self.memory, "chat_memory") and hasattr(self.memory.chat_memory, "messages"):
                 # Convert stored messages to Ollama format
                 for m in self.memory.chat_memory.messages:
