@@ -11,9 +11,12 @@ class Settings(BaseSettings):
     ollama_model: str = Field(default="llama3.1", alias="OLLAMA_MODEL")
     ollama_temperature: float = Field(default=0.2, alias="OLLAMA_TEMPERATURE")
     system_prompt: str = Field(default="", alias="SYSTEM_PROMPT")
+    default_language: str = Field(default="english", alias="DEFAULT_LANGUAGE")
+    recent_messages_window: int = Field(default=6, alias="RECENT_MESSAGES_WINDOW")
     log_level: str = Field(default="INFO", alias="LOG_LEVEL")
     host: str = "0.0.0.0"
     port: int = 8000
+    message_summary_char_limit: int = Field(default=600, alias="MESSAGE_SUMMARY_CHAR_LIMIT")
     reload: bool = False
 
     # Redis Configuration
