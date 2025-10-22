@@ -20,7 +20,7 @@ class InfoAgentService:
                 # Adapt to your info-agent response format
                 return data.get("answer") or data.get("response") or str(data)
         except Exception as e:
-            logger.error(f"Error calling info-agent: {e}")
+            logger.error(f"Error calling info-agent: {type(e).__name__}: {e!r}", exc_info=True)
             return "[Error: Unable to get response from info-agent]"
 
     def is_available(self) -> bool:
