@@ -139,6 +139,15 @@ class AIService:
             # Reverse to restore chronological order
         return msgs_to_summarize
     
+    def _msg_to_dict(self, m):
+        # Converts HumanMessage/AIMessage or dict to dict with role/content
+        if hasattr(m, "type") and hasattr(m, "content"):
+            role = "user" if m.type == "human" else "assistant"
+            return {"role": role, "content": m.content}
+        elif isinstance(m, dict):
+            return m
+        return None
+    
     async def _ask(self, question, summary_text, context_messages):
         messages = []
         # Add system prompt
@@ -148,7 +157,10 @@ class AIService:
         if summary_text:
             messages.append({"role": "system", "content": summary_text})
         # Add context messages
-        messages.extend(context_messages)
+        for m in context_messages:
+            msg_dict = self._msg_to_dict(m)
+            if msg_dict:
+                messages.append(msg_dict)
         # Add current question
         messages.append({"role": "user", "content": question})
         payload = {
