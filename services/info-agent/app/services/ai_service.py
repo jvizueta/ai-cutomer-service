@@ -172,7 +172,7 @@ class AIService:
     def _is_summarization_needed(self, messages_to_check) -> bool:
         """Determine if summarization threshold has been exceeded for the oldest messages to summarize."""
         logger.debug("Checking if summarization is needed based on token budget")
-        text_to_check = " ".join([m.get("content", "") for m in messages_to_check])
+        text_to_check = " ".join([getattr(m, "content", "") for m in messages_to_check])
         total_tokens = self._estimate_token_count(text_to_check)
         threshold = self.token_budget - self.summary_token_budget - self.summarization_prompt_tokens
         logger.debug(f"Adaptive summary check (oldest messages): total_tokens={total_tokens} threshold={threshold}")
