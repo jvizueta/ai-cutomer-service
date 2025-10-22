@@ -1,4 +1,3 @@
-
 import logging
 import httpx
 import redis
@@ -29,8 +28,8 @@ class AIService:
         # Adaptive summarization parameters (now from settings)
         self.token_budget = getattr(settings, "token_budget", 8192)
         self.summary_token_budget = getattr(settings, "summary_token_budget", 1000)
-        self.recent_messages_to_keep = getattr(settings, "recent_messages_window", 6) or 6
-        self.messages_to_summarize = getattr(settings, "messages_to_summarize", 10)
+        self.num_of_recent_messages_to_keep = getattr(settings, "recent_messages_window", 6) or 6
+        self.num_of_messages_to_summarize = getattr(settings, "messages_to_summarize", 10)
         self.summarization_prompt_tokens = getattr(settings, "summarization_prompt_tokens", 100)
         # Internal conversation representation (list of {role, content})
         self.message_summary_char_limit = getattr(settings, "message_summary_char_limit", 600)
@@ -83,46 +82,28 @@ class AIService:
 
             logger.debug(f"Using prompt: {prompt}")
 
-            # Get messages from memory
-            history_messages = []
-            if self.memory is not None and hasattr(self.memory, "chat_memory") and hasattr(self.memory.chat_memory, "messages"):
-                for m in self.memory.chat_memory.messages:
-                    if hasattr(m, "type") and hasattr(m, "content"):
-                        if m.type == "human":
-                            history_messages.append({"role": "user", "content": m.content})
-                        elif m.type == "ai":
-                            history_messages.append({"role": "assistant", "content": m.content})
+            msgs_to_summarize = self._build_msgs_to_summarize()
+            logger.debug(f"Messages to summarize count: {len(msgs_to_summarize)}")
+            logger.debug(f"Messages to summarize: {msgs_to_summarize}")
+            context_messages = self._get_context_messages()
+            logger.debug(f"Context messages count: {len(context_messages)}")
+            logger.debug(f"Context messages: {context_messages}")
 
-            # Rebuild internal conversation history from Redis memory
-            self.conversation_history = history_messages
+            is_summarization_needed = self._is_summarization_needed(context_messages)
+            logger.debug(f"Is summarization needed: {is_summarization_needed}")
+            if is_summarization_needed:
+                summary_text = await self._summarize_messages(msgs_to_summarize, language)
+                logger.debug(f"Generated summary text: {summary_text}")
 
-            # Apply adaptive summarization if needed
-            await self._apply_adaptive_summarization(language)
+            content = await self._ask(question, summary_text, context_messages)
+            logger.info(f"Generated AI response for question: {question[:50]}...")
+            logger.debug(f"AI response from Ollama: {content[:50]}")
 
-
-            # Prepare final context messages
-            messages = self._prepare_context_messages(prompt)
-
-            payload = {
-                "model": self.model,
-                "temperature": self.temperature,
-                "messages": messages,
-                "options": {
-                    "num_ctx": self.token_budget
-                }
-            }
-            logger.debug(f"Payload for Ollama: {payload}")
-
-            content = await self._call_ollama_api(payload)
             if content is None:
                 return "[Error: Exception during Ollama API call]"
 
             # Save to Redis memory
             self._save_to_memory(prompt, content)
-
-            logger.info(f"Generated AI response for question: {question[:50]}...")
-
-            logger.debug(f"AI response: {content}")
 
             return content
 
@@ -138,31 +119,73 @@ class AIService:
             return resp.status_code == 200
         except Exception:
             return False
+    
+    def _build_msgs_to_summarize(self):
+        # Get messages to summarize from memory
+        msgs_to_summarize = []
+        msgs_to_summarize_count = 0
+        if self.memory is not None and hasattr(self.memory, "chat_memory") and hasattr(self.memory.chat_memory, "messages"):
+            N = self.num_of_recent_messages_to_keep + self.num_of_messages_to_summarize
+            logger.debug(f"Building messages to summarize from last {N} messages")
+            chat_memory_msgs = self.memory.chat_memory.messages[-N:-self.num_of_recent_messages_to_keep]
+            # Iterate backwards for efficiency
+            for m in chat_memory_msgs:
+                if hasattr(m, "type") and hasattr(m, "content"):
+                    if m.type == "human":
+                        msgs_to_summarize.append({"role": "user", "content": m.content})
+                    elif m.type == "ai":
+                        msgs_to_summarize.append({"role": "assistant", "content": m.content})
+            # Reverse to restore chronological order
+        return msgs_to_summarize
+    
+    async def _ask(self, question, summary_text, context_messages):
+        messages = []
+        # Add system prompt
+        if self.system_prompt:
+            messages.append({"role": "system", "content": self.system_prompt})
+        # Add summary if available
+        if summary_text:
+            messages.append({"role": "system", "content": summary_text})
+        # Add context messages
+        messages.extend(context_messages)
+        # Add current question
+        messages.append({"role": "user", "content": question})
+        payload = {
+            "model": self.model,
+            "temperature": self.temperature,
+            "messages": messages,
+            "options": {
+                "num_ctx": self.token_budget
+            }
+        }
+        logger.debug(f"Payload for Ollama: {payload}")
+
+        content = await self._call_ollama_api(payload)
+        return content
 
     # -------------------- Adaptive Summarization Helpers --------------------
     def _estimate_token_count(self, text: str) -> int:
         """Rough token estimation (1 token ~= 4 characters)."""
         return max(1, len(text) // 4)
 
-    def _is_summarization_needed(self) -> bool:
+    def _is_summarization_needed(self, messages_to_check) -> bool:
         """Determine if summarization threshold has been exceeded for the oldest messages to summarize."""
-        messages_to_check = self._get_messages_to_summarize()
-        text_to_check = self.system_prompt + " " + " ".join([m.get("content", "") for m in messages_to_check])
+        logger.debug("Checking if summarization is needed based on token budget")
+        text_to_check = " ".join([m.get("content", "") for m in messages_to_check])
         total_tokens = self._estimate_token_count(text_to_check)
         threshold = self.token_budget - self.summary_token_budget - self.summarization_prompt_tokens
         logger.debug(f"Adaptive summary check (oldest messages): total_tokens={total_tokens} threshold={threshold}")
         return total_tokens > threshold
 
-    def _get_messages_to_summarize(self):
-        return self.conversation_history[:self.messages_to_summarize]
-
     async def _summarize_messages(self, messages, language=None):
         if not messages:
             return "Summary: (no content)"
         # Prepare transcript for LLM summarization
+        logger.debug("Preparing messages for summarization")
         transcript = "\n".join([f"{m.get('role','user')}: {m.get('content','')[:self.message_summary_char_limit]}" for m in messages])
+        logger.debug(f"Transcript for summarization: {transcript}")
         lang = language or getattr(settings, "default_language", "english")
-        system_prompt = (
+        summarization_prompt = (
             f"You are an assistant that summarizes a conversation in {lang}. Include user intents, key information provided, and next recommended action. "
             f"Maximum {self.summary_token_budget} tokens. Do not fabricate details. Respond with only the summary."
         )
@@ -171,7 +194,7 @@ class AIService:
             "model": self.model,
             "temperature": 0.0,
             "messages": [
-                {"role": "system", "content": system_prompt},
+                {"role": "system", "content": summarization_prompt},
                 {"role": "user", "content": f"{user_intro}\n{transcript}"}
             ],
             "options": {
@@ -182,36 +205,8 @@ class AIService:
         logger.debug("Generated LLM summary.")
         return f"Summary: {summary.strip() if summary else '(no content)'}"
 
-    async def _apply_adaptive_summarization(self, language=None):
-        """Replace oldest messages with a system summary if needed."""
-        try:
-            if not self.conversation_history:
-                return
-            if self._is_summarization_needed():
-                to_summarize = self._get_messages_to_summarize()
-                summary_text = await self._summarize_messages(to_summarize, language)
-                # Replace the first block with a system summary message
-                self.conversation_history = ([{"role": "system", "content": summary_text}] +
-                                             self.conversation_history[self.messages_to_summarize:])
-                logger.info("Applied adaptive summarization to conversation history.")
-        except Exception as e:
-            logger.warning(f"Adaptive summarization failed: {e}")
-
-    def _prepare_context_messages(self, prompt):
-        messages = []
-        if self.system_prompt:
-            messages.append({"role": "system", "content": self.system_prompt})
-        # Include any system summary message (role == system) produced by summarization
-        for msg in self.conversation_history:
-            if msg.get("role") == "system" and msg.get("content", "").startswith("Summary:"):
-                messages.append(msg)
-                break  # Only include the first summary system message
-        # Append last N recent messages
-        recent_slice = self.conversation_history[-self.recent_messages_to_keep:]
-        messages.extend(recent_slice)
-        # Add current user prompt
-        messages.append({"role": "user", "content": prompt})
-        return messages
+    def _get_context_messages(self):
+        return self.memory.chat_memory.messages[-self.num_of_recent_messages_to_keep:]
     
     async def _call_ollama_api(self, payload):
         logger.debug("Sending request to Ollama API")
