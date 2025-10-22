@@ -91,6 +91,7 @@ class AIService:
 
             is_summarization_needed = self._is_summarization_needed(context_messages)
             logger.debug(f"Is summarization needed: {is_summarization_needed}")
+            summary_text = None
             if is_summarization_needed:
                 summary_text = await self._summarize_messages(msgs_to_summarize, language)
                 logger.debug(f"Generated summary text: {summary_text}")
