@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     ollama_base_url: str = Field(default="http://ollama:11434", alias="OLLAMA_BASE_URL")
     ollama_model: str = Field(default="llama3.1", alias="OLLAMA_MODEL")
     ollama_temperature: float = Field(default=0.2, alias="OLLAMA_TEMPERATURE")
+    ollama_timeout: int = Field(default=60, alias="OLLAMA_TIMEOUT")
     system_prompt: str = Field(default="", alias="SYSTEM_PROMPT")
     default_language: str = Field(default="english", alias="DEFAULT_LANGUAGE")
     recent_messages_window: int = Field(default=6, alias="RECENT_MESSAGES_WINDOW")

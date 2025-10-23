@@ -24,6 +24,7 @@ class AIService:
         self.redis_url = settings.redis_url
         self.session_id = session_id
         self.system_prompt = settings.system_prompt
+        self.timeout = settings.ollama_timeout
         self._memory = None
         # Adaptive summarization parameters (now from settings)
         self.token_budget = getattr(settings, "token_budget", 8192)
@@ -33,7 +34,6 @@ class AIService:
         self.summarization_prompt_tokens = getattr(settings, "summarization_prompt_tokens", 100)
         # Internal conversation representation (list of {role, content})
         self.message_summary_char_limit = getattr(settings, "message_summary_char_limit", 600)
-        self.conversation_history = []
         if not self.redis_url:
             logger.warning("No Redis URL found for AI service; memory will be disabled")
         else:
@@ -98,7 +98,10 @@ class AIService:
 
             content = await self._ask(question, summary_text, context_messages)
             logger.info(f"Generated AI response for question: {question[:50]}...")
-            logger.debug(f"AI response from Ollama: {content[:50]}")
+            if content is not None:
+                logger.debug(f"AI response from Ollama: {content[:50]}")
+            else:
+                logger.debug("AI response from Ollama: None (API call failed)")
 
             if content is None:
                 return "[Error: Exception during Ollama API call]"
@@ -224,7 +227,7 @@ class AIService:
     async def _call_ollama_api(self, payload):
         logger.debug("Sending request to Ollama API")
         try:
-            async with httpx.AsyncClient(timeout=60) as client:
+            async with httpx.AsyncClient(timeout=self.timeout) as client:
                 response = await client.post(f"{self.base_url}/v1/chat/completions", json=payload)
                 response.raise_for_status()
                 data = response.json()
