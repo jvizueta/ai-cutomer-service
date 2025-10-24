@@ -1,7 +1,7 @@
 # Counter Agent
 
 ## Introduction
-Counter Agent answers general questions related to the customer service
+Counter Agent is a LangChain-based project that uses OpenAI for natural language processing and question answering. Counter Agent answers general questions related to the customer service
 
 ## Setup (Python Virtual Environment)
 
