@@ -11,6 +11,7 @@ class CalendarScheduler:
     """Simple stub calendar scheduler. Provides availability checking and meeting scheduling."""
 
     def __init__(self):
+        logger.debug("Initializing CalendarScheduler")
         self.calendar_id = settings.CALENDAR_ID
         self.default_duration = settings.DEFAULT_MEETING_DURATION_MINUTES
         self.timezone = settings.TIMEZONE
@@ -18,15 +19,18 @@ class CalendarScheduler:
         self._events: List[Dict[str, Any]] = []
 
     def list_events(self) -> List[Dict[str, Any]]:
+        logger.debug("Listing calendar events")
         return self._events
 
     def is_available(self, start: datetime, end: datetime) -> bool:
+        logger.debug(f"Checking availability from {start} to {end}")
         for evt in self._events:
             if not (end <= evt["start"] or start >= evt["end"]):
                 return False
         return True
 
     def schedule_meeting(self, prospect_name: str, start: datetime) -> Dict[str, Any]:
+        logger.debug(f"Scheduling meeting with {prospect_name} at {start}")
         end = start + timedelta(minutes=self.default_duration)
         if not self.is_available(start, end):
             return {"scheduled": False, "reason": "Time slot not available"}
@@ -42,6 +46,7 @@ class CalendarScheduler:
 
     async def run(self, query: str) -> str:
         """Very naive parser: if query contains 'schedule' and a name, schedule a meeting at next hour."""
+        logger.debug(f"Running CalendarScheduler with query: {query[:50]}")
         now = datetime.utcnow()
         prospect = "prospect"
         if "schedule" in query.lower():
@@ -63,6 +68,7 @@ class CalendarScheduler:
 
 def calendar_scheduler_tool() -> Dict[str, Any]:
     async def _invoke(input_text: str) -> str:
+        logger.debug(f"Invoking CalendarScheduler with input_text: {input_text[:50]}")
         scheduler = CalendarScheduler()
         return await scheduler.run(input_text)
     return {

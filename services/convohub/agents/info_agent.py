@@ -18,6 +18,7 @@ class InfoAgent:
     """FAQ answering agent backed by an Ollama model with Redis memory and adaptive summarization."""
 
     def __init__(self, session_id: str = "default"):
+        logger.debug(f"Initializing InfoAgent with session_id: {session_id}")
         self.session_id = session_id
         self.base_url = settings.OLLAMA_BASE_URL
         self.model = settings.INFO_AGENT_MODEL
@@ -34,10 +35,15 @@ class InfoAgent:
 
     @property
     def memory(self):
+        """Lazy initialization of Redis-based memory"""
+        logger.debug(f"Accessing memory for InfoAgent with session_id: {self.session_id}")
         if self._memory is None and self.redis_url and RedisChatMessageHistory and ConversationBufferMemory:
             try:
+                logger.debug(f"Initializing RedisChatMessageHistory with redis_url: {self.redis_url}")
                 chat_history = RedisChatMessageHistory(session_id=self.session_id, redis_url=self.redis_url)
+                logger.debug("Initializing ConversationBufferMemory")
                 self._memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=chat_history, return_messages=True)
+                logger.debug("Redis-based memory initialized successfully")
             except Exception as e:
                 logger.warning(f"Redis memory init failed: {e}")
                 self._memory = None
@@ -47,6 +53,7 @@ class InfoAgent:
         return max(1, len(text) // 4)
 
     def _needs_summary(self) -> bool:
+        logger.debug("Checking if summarization is needed")
         msgs = self.conversation_history[: self.messages_to_summarize]
         text = self.system_prompt + " " + " ".join(m.get("content", "") for m in msgs)
         total = self._estimate_tokens(text)
@@ -54,7 +61,9 @@ class InfoAgent:
         return total > threshold
 
     async def _summarize(self, messages: List[Dict[str, str]]) -> str:
+        logger.debug("Starting summarization process")
         if not messages:
+            logger.debug("No messages to summarize")
             return "Summary: (no content)"
         transcript = "\n".join([
             f"{m.get('role','user')}: {m.get('content','')[:self.message_summary_char_limit]}" for m in messages
@@ -99,6 +108,7 @@ class InfoAgent:
         return msgs
 
     def _rebuild_history_from_memory(self):
+        logger.debug("Rebuilding conversation history from memory")
         history: List[Dict[str, str]] = []
         if self.memory and hasattr(self.memory, "chat_memory"):
             for m in getattr(self.memory.chat_memory, "messages", []):
@@ -109,6 +119,7 @@ class InfoAgent:
         self.conversation_history = history
 
     async def ask(self, question: str) -> str:
+        logger.debug(f"InfoAgent received question: {question[:50]}")
         self._rebuild_history_from_memory()
         # apply summarization if needed
         if self._needs_summary():
@@ -144,11 +155,13 @@ class InfoAgent:
 
     # Tool interface
     async def run(self, query: str) -> str:
+        logger.debug(f"Running InfoAgent with query: {query[:50]}")
         return await self.ask(query)
 
 def info_agent_tool() -> Dict[str, Any]:
     """Returns a tool definition for the orchestrator."""
     async def _invoke(input_text: str) -> str:
+        logger.debug(f"Invoking InfoAgent with input_text: {input_text[:50]}")
         agent = InfoAgent(session_id="global")
         return await agent.run(input_text)
     return {
