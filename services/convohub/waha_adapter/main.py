@@ -1,6 +1,7 @@
 import logging
-from fastapi import FastAPI, Header, HTTPException
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from typing import Dict, Any
 from ..config import settings
 from ..orchestrator import Orchestrator
 
@@ -9,19 +10,33 @@ app = FastAPI(title="WAHA Adapter")
 
 orchestrator = Orchestrator()
 
-class WebhookPayload(BaseModel):
-    from_number: str
-    message: str
+class WAHAWebhookReq(BaseModel):
+    event: str
+    session: str
+    payload: Dict[str, Any]
 
 @app.get("/healthz")
 async def healthz():
     return {"ok": True}
 
 @app.post("/webhook")
-async def webhook(payload: WebhookPayload, x_api_key: str = Header(None)):
-    if settings.WAHA_API_KEY and x_api_key != settings.WAHA_API_KEY:
-        raise HTTPException(status_code=401, detail="Invalid API key")
-    user_query = payload.message.strip()
-    logger.info(f"Received webhook from {payload.from_number}: {user_query}")
-    response_text = orchestrator.invoke(user_query)
-    return {"answer": response_text}
+async def waha_webhook(req: WAHAWebhookReq):
+    logger.info(f"Full request: {req.json()}")
+    logger.info(f"Received webhook event: {req.event} for session {req.session}")
+    if req.event != "message":
+        logger.info("Ignoring non-message event")
+        return {"status": "ignored"}
+
+    body = (req.payload.get("body") or "").strip()
+    chat_id = req.payload.get("from") or req.payload.get("chatId")
+    if not body or not chat_id:
+        logger.warning("Missing body or chat identifier; ignoring.")
+        return {"status": "ignored"}
+
+    logger.info(f"Processing message from {chat_id}: {body[:100]}")
+    try:
+        response_text = orchestrator.invoke(body)
+    except Exception as e:
+        logger.error(f"Orchestrator error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to process message")
+    return {"status": "ok", "answer": response_text}
