@@ -2,7 +2,11 @@ import logging
 from typing import List, Dict, Any, Callable
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 from langchain.prompts import ChatPromptTemplate
-from langchain_community.chat_models import ChatOllama
+try:
+    # Preferred modern import (post deprecation)
+    from langchain_ollama import ChatOllama  # type: ignore
+except ImportError:  # Fallback if new package not yet installed
+    from langchain_community.chat_models import ChatOllama  # type: ignore
 from langgraph.graph import StateGraph, END
 from .config import settings
 from .agents.info_agent import info_agent_tool
@@ -22,6 +26,7 @@ def build_orchestrator_graph():
     # Build a simple tool registry (no ToolExecutor to avoid version API mismatch)
     tool_registry = {t["name"]: t for t in [info_agent_tool(), calendar_scheduler_tool()]}
 
+    # Instantiate Ollama chat model using new package if available.
     llm = ChatOllama(
         base_url=settings.OLLAMA_BASE_URL,
         model=settings.SUPERVISOR_MODEL,
