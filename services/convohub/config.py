@@ -10,6 +10,7 @@ class Settings(BaseSettings):
 
     # Ollama shared base
     OLLAMA_BASE_URL: str = Field(default="http://ollama:11434")
+    OLLAMA_TIMEOUT: int = Field(default=60)
 
     # Supervisor (orchestrator)
     SUPERVISOR_MODEL: str = Field(default="llama3.1")

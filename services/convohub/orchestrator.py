@@ -31,6 +31,7 @@ def build_orchestrator_graph():
         base_url=settings.OLLAMA_BASE_URL,
         model=settings.SUPERVISOR_MODEL,
         temperature=settings.SUPERVISOR_TEMPERATURE,
+        timeout=settings.OLLAMA_TIMEOUT
     )
 
     system_prompt = (
@@ -80,9 +81,14 @@ class Orchestrator:
         self.graph = build_orchestrator_graph()
 
     def invoke(self, user_input: str) -> str:
+        logger.debug(f"Orchestrator received input: {user_input}")
         state = {"user_input": user_input, "messages": []}
+        logger.debug(f"Orchestrator state before invoke: {state}")
         result = self.graph.invoke(state)
+        logger.debug(f"Orchestrator result state: {result}")
         msgs = result.get("messages", [])
+        logger.debug(f"Orchestrator messages: {msgs}")
         if msgs:
+            logger.debug(f"Orchestrator returning message: {msgs[-1]['content']}")
             return msgs[-1]["content"]
         return "[No response]"
