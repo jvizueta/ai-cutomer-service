@@ -19,7 +19,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Copy requirements first for layer caching
 COPY requirements.txt ./requirements.txt
-RUN pip install --user --no-cache-dir -r requirements.txt
+# Install dependencies system-wide (avoid --user so runtime non-root user sees packages)
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Final stage
 FROM python:${PYTHON_VERSION}-slim AS runtime
@@ -35,9 +36,9 @@ WORKDIR /app
 # Create non-root user
 RUN useradd -m -u 10001 -s /bin/bash ${APP_USER}
 
-# Copy installed packages from builder
-COPY --from=builder /root/.local /root/.local
-ENV PATH=/root/.local/bin:$PATH
+# Copy only necessary python artifacts (site-packages and scripts)
+COPY --from=builder /usr/local/lib/python3.11 /usr/local/lib/python3.11
+COPY --from=builder /usr/local/bin /usr/local/bin
 
 # Copy source
 COPY . .
