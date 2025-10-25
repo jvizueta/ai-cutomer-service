@@ -41,7 +41,8 @@ COPY --from=builder /usr/local/lib/python3.11 /usr/local/lib/python3.11
 COPY --from=builder /usr/local/bin /usr/local/bin
 
 # Copy source
-COPY . .
+# Copy source into a package directory so module path convohub.waha_adapter.main works
+COPY . ./convohub
 
 # Ensure permissions
 RUN chown -R ${APP_USER}:${APP_USER} /app
