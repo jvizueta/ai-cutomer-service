@@ -4,7 +4,6 @@ from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 from langchain.prompts import ChatPromptTemplate
 from langchain_community.chat_models import ChatOllama
 from langgraph.graph import StateGraph, END
-from langgraph.prebuilt import ToolExecutor
 from .config import settings
 from .agents.info_agent import info_agent_tool
 from .agents.calendar_scheduler import calendar_scheduler_tool
@@ -20,9 +19,8 @@ class OrchestratorState(dict):
 
 def build_orchestrator_graph():
     # Instantiate tool definitions
-    tools = [info_agent_tool(), calendar_scheduler_tool()]
-    tool_map = {t["name"]: t for t in tools}
-    tool_executor = ToolExecutor({name: t["callable"] for name, t in tool_map.items()})
+    # Build a simple tool registry (no ToolExecutor to avoid version API mismatch)
+    tool_registry = {t["name"]: t for t in [info_agent_tool(), calendar_scheduler_tool()]}
 
     llm = ChatOllama(
         base_url=settings.OLLAMA_BASE_URL,
@@ -50,8 +48,9 @@ def build_orchestrator_graph():
             # parse TOOL:tool_name:query
             try:
                 _, tool_name, query = text.split(":", 2)
-                if tool_name in tool_map:
-                    result = tool_executor.invoke({"tool": tool_name, "query": query})
+                if tool_name in tool_registry:
+                    # Direct callable invocation
+                    result = tool_registry[tool_name]["callable"](query)
                     return {"messages": state.get("messages", []) + [
                         {"role": "assistant", "content": f"[Tool {tool_name} result] {result}"}
                     ], "last_tool": tool_name}
